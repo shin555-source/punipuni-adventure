@@ -6,152 +6,227 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#f3f6fc">
-<title>ぷにぷにファクトリー</title>
+<title>ぷにぷに冒険</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f3f6fc;color:#25334a;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
-button{font:inherit;cursor:pointer;touch-action:manipulation}
-.app{height:100dvh;max-width:440px;margin:auto;padding: max(8px,env(safe-area-inset-top)) 12px max(8px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:7px;overflow:hidden}
-.hidden{display:none!important}
+button{font:inherit;touch-action:manipulation;cursor:pointer}
 button:disabled{opacity:.4}
-.title-screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:17px}
-.logo{font-size:34px;font-weight:900;line-height:1.12;margin:0}
-.sub{color:#758198;font-size:12px}
-.primary{background:#5d9ce8;color:white;font-weight:900;border:0;border-radius:14px;padding:14px 24px;width:100%;max-width:290px;box-shadow:0 4px #3975bd}
-.mascot{width:clamp(112px,32vw,148px);aspect-ratio:1;display:grid;place-items:center;filter:drop-shadow(0 8px 7px #45689a25)}
-.slime{width:100%;height:88%;position:relative;border:3px solid #5594dc;border-radius:48% 52% 43% 45%/58% 60% 40% 42%;background:radial-gradient(circle at 30% 22%,#fff 0 5%,#d6f4ff 6% 15%,#8ed3ff 45%,#5797e6 100%);animation:bob 2s ease-in-out infinite}
-.slime:before{content:"";position:absolute;left:23%;top:34%;width:13%;height:19%;background:#23334e;border-radius:50%;box-shadow:57px 0 #23334e}
-.slime:after{content:"";position:absolute;left:43%;top:55%;width:17%;height:9%;border-bottom:3px solid #23334e;border-radius:50%}
-.cheek{position:absolute;top:57%;width:16%;height:8%;border-radius:50%;background:#ff9db1}
-.cheek.left{left:15%}.cheek.right{right:15%}
-@keyframes bob{50%{transform:translateY(-5px)}}
-#game{display:flex;flex-direction:column;gap:7px;flex:1;min-height:0}
-.top{display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:900}
-.lv{background:#e1ecff;color:#3768a6;padding:5px 9px;border-radius:99px;font-size:12px}
-.panel{background:white;border:1px solid #e4eaf3;border-radius:13px;padding:9px 11px}
-.points{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.label{font-size:10px;color:#7a879b}
-.big{font-size:27px;line-height:1.15;font-weight:900}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.stat{background:white;border:1px solid #e4eaf3;border-radius:10px;padding:7px;min-width:0}
-.val{font-size:13px;font-weight:900;margin-top:3px;white-space:nowrap}
-.play{display:flex;align-items:center;justify-content:center;gap:10px;flex:1;min-height:0}
-.tap{display:flex;flex-direction:column;align-items:center;gap:5px;background:transparent;border:0;padding:0}
-.tap .mascot{width:clamp(105px,30vw,140px)}
-.hint{font-size:11px;font-weight:900;color:#4e8bd7}
-.side{display:flex;flex-direction:column;gap:6px;width:100px}
-.chip{background:white;border:1px solid #e4eaf3;border-radius:10px;padding:8px;font-size:10px;color:#78859a}
-.chip b{display:block;color:#26334a;font-size:14px;margin-top:3px}
-.chest{background:white;border:1px solid #e4eaf3;border-radius:13px;padding:8px 9px}
-.chest-head{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:900;margin-bottom:6px}
-.odds{display:flex;gap:4px;flex-wrap:wrap}
-.odd{background:#f0f4fa;border-radius:5px;padding:4px 5px;font-size:9px;color:#526078;white-space:nowrap}
+.hidden{display:none!important}
+.app{height:100dvh;max-width:440px;margin:auto;padding:max(6px,env(safe-area-inset-top)) 10px max(6px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.panel{background:white;border:1px solid #e1e8f2;border-radius:12px;padding:8px 10px}
+.title-screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center}
+.logo{font-size:32px;font-weight:900;margin:0}
+.primary{background:#5598e8;color:white;border:0;border-radius:12px;padding:13px 24px;font-weight:900}
+#game{display:flex;flex-direction:column;gap:6px;flex:1;min-height:0}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:900}
+.badge{background:#fff0c7;color:#875b00;border-radius:9px;padding:6px 8px;font-size:11px;max-width:58%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.points{display:flex;justify-content:space-between;align-items:center}
+.label{font-size:10px;color:#78859b}
+.big{font-size:24px;font-weight:900;line-height:1.2}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.stat{background:white;border:1px solid #e1e8f2;border-radius:9px;padding:6px;min-width:0}
+.val{font-size:13px;font-weight:900;margin-top:3px}
+.enemy{text-align:center;display:flex;flex-direction:column;gap:5px}
+.enemy-name{font-size:17px;font-weight:900}
+.enemy-art{font-size:48px;line-height:1.1}
+.hpbar{height:9px;border-radius:9px;background:#e7eaf0;overflow:hidden}
+.hpfill{height:100%;width:100%;background:#ef6565;transition:width .2s}
+.enemy-info{font-size:10px;color:#78859b}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.action{border:0;border-radius:10px;padding:11px 5px;font-weight:900}
+.attack{background:#e45d67;color:white;box-shadow:0 3px #b33d49}
+.tap{background:#dcecff;color:#285f9f}
+.chest-head{display:flex;justify-content:space-between;align-items:center;font-weight:900;font-size:12px;margin-bottom:5px}
+.odds{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+.odd{background:#f0f4fa;border-radius:5px;padding:4px 5px;font-size:9px}
 .chest-row{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.chest-btn{border:0;border-radius:10px;background:#efbd58;color:#5b3d0b;font-weight:900;padding:9px 12px;white-space:nowrap;box-shadow:0 3px #c18a29}
-.upgrades{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.up{background:white;border:1px solid #e2e8f2;border-radius:10px;padding:8px;text-align:left;color:#26334a;min-width:0}
-.up b{display:block;font-size:11px}.up span{display:block;font-size:10px;color:#718096;margin-top:3px}
-.footer{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#78859a}
-.notice{position:fixed;z-index:10;top:calc(env(safe-area-inset-top) + 10px);left:50%;transform:translate(-50%,-10px);opacity:0;transition:.18s;background:#25334a;color:white;border-radius:99px;padding:10px 15px;font-size:12px;font-weight:900;white-space:nowrap;pointer-events:none}
+.chest-btn{background:#efbd58;color:#5b3d0b;border:0;border-radius:9px;padding:8px 12px;font-weight:900;white-space:nowrap}
+.upgrade{background:white;border:1px solid #e1e8f2;border-radius:9px;padding:8px;text-align:left;font-size:11px;font-weight:900}
+.upgrade span{display:block;font-size:10px;color:#78859b;margin-top:3px}
+.notice{position:fixed;top:calc(env(safe-area-inset-top) + 8px);left:50%;transform:translate(-50%,-10px);opacity:0;pointer-events:none;background:#25334a;color:white;border-radius:20px;padding:9px 13px;font-size:12px;font-weight:900;z-index:10;transition:.2s;white-space:nowrap}
 .notice.show{opacity:1;transform:translate(-50%,0)}
-.over{position:fixed;inset:0;background:#000;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
-.over h1{font-size:clamp(38px,11vw,54px);color:#ff2020;margin:0 0 12px;letter-spacing:2px}
-.over p{font-size:12px;color:#aaa;margin:0 0 25px}
-.over button{background:#111;color:#ff3030;border:1px solid #a00;border-radius:12px;padding:13px 22px;font-weight:900}
-@media(max-height:650px){.app{gap:4px;padding-top:5px;padding-bottom:5px}#game{gap:4px}.panel{padding:7px 9px}.stat{padding:5px}.tap .mascot{width:100px}.chest{padding:6px 8px}.up{padding:6px}.play{flex:1}}
+.over{position:fixed;inset:0;background:#000;color:#aaa;z-index:20;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:16px}
+.over h1{font-size:42px;color:red;margin:0}
+.over button{background:#111;color:#ff3030;border:1px solid #a00;border-radius:10px;padding:12px;font-weight:900}
+@media(max-height:700px){.app{gap:4px;padding-top:4px;padding-bottom:4px}#game{gap:4px}.panel{padding:6px 8px}.enemy-art{font-size:38px}.action{padding:9px 4px}.upgrade{padding:6px}.stats .stat{padding:5px}}
 </style>
 </head>
 <body>
 <div class="app">
 <section id="title" class="title-screen">
-  <div class="mascot"><div class="slime"><i class="cheek left"></i><i class="cheek right"></i></div></div>
-  <h1 class="logo">ぷにぷに<br>ファクトリー</h1>
-  <div class="sub">タップで稼いで、宝箱から秘宝をゲット！</div>
-  <button class="primary" id="start">▶ ゲームスタート</button>
-  <div class="sub">タップでポイントを集めて<br>レアな倍率アイテムを手に入れよう！</div>
+  <div style="font-size:76px">🫧</div>
+  <h1 class="logo">ぷにぷに冒険</h1>
+  <div class="label">敵を倒し、宝箱を開け、称号を集めよう！</div>
+  <button class="primary" id="start">▶ 冒険スタート</button>
 </section>
 
 <main id="game" class="hidden">
-  <header class="top"><span>ぷにぷにファクトリー</span><span class="lv" id="lv">Lv. 1</span></header>
+  <header class="top">
+    <span>⚔️ ぷにぷに冒険</span>
+    <span class="badge" id="titleName">称号：駆け出し</span>
+  </header>
+
   <section class="panel points">
-    <div><div class="label">所持ポイント</div><span class="big" id="points">0</span> <span class="label">pt</span></div>
-    <div style="text-align:right"><div class="label">タップ倍率</div><div class="big" style="font-size:22px" id="mult">×1.0</div></div>
+    <div><div class="label">所持ポイント</div><span class="big" id="points">0</span><span class="label"> pt</span></div>
+    <div style="text-align:right"><div class="label">タップ倍率</div><div class="big" id="mult">×1.0</div></div>
   </section>
+
   <section class="stats">
-    <div class="stat"><div class="label">タップ威力</div><div class="val" id="power">+1 pt</div></div>
-    <div class="stat"><div class="label">累計タップ</div><div class="val" id="taps">0 回</div></div>
-    <div class="stat"><div class="label">宝箱</div><div class="val" id="chests">0 個</div></div>
+    <div class="stat"><div class="label">攻撃力</div><div class="val" id="power">1</div></div>
+    <div class="stat"><div class="label">自分のHP</div><div class="val" id="playerHP">30/30</div></div>
+    <div class="stat"><div class="label">撃破数</div><div class="val" id="kills">0</div></div>
   </section>
-  <section class="play">
-    <button class="tap" id="tap" aria-label="主人公をタップ">
-      <div class="mascot"><div class="slime"><i class="cheek left"></i><i class="cheek right"></i></div></div>
-      <span class="hint">タップしてポイントGET！</span>
-    </button>
-    <div class="side">
-      <div class="chip">現在の倍率<b id="sideMult">×1.0</b></div>
-      <div class="chip">次のレベル<b id="next">あと10回</b></div>
+
+  <section class="panel enemy">
+    <div class="enemy-name" id="enemyName">スライム</div>
+    <div class="enemy-art" id="enemyArt">🟢</div>
+    <div class="hpbar"><div class="hpfill" id="enemyBar"></div></div>
+    <div class="enemy-info" id="enemyInfo">敵HP 10/10 ・ 攻撃力 1</div>
+    <button class="action attack" id="fight">⚔️ 敵を攻撃！</button>
+  </section>
+
+  <div class="actions">
+    <button class="action tap" id="tap">🫧 タップで稼ぐ</button>
+    <button class="action" style="background:#e5e0ff;color:#58439a" id="upgrade">💪 攻撃力強化</button>
+  </div>
+
+  <section class="panel">
+    <div class="chest-head"><span>🎁 秘宝の宝箱</span><span class="label">レベルなし・運と戦略で強化</span></div>
+    <div class="odds">
+      <span class="odd">ポイント 50%</span>
+      <span class="odd">倍率×1.5 25%</span>
+      <span class="odd">倍率×2 15%</span>
+      <span class="odd">強化アイテム 10%</span>
     </div>
-  </section>
-  <section class="chest">
-    <div class="chest-head"><span>🗝️ 秘宝の宝箱</span><span class="label">景品確率</span></div>
     <div class="chest-row">
-      <div class="odds">
-        <span class="odd">ポイント <b>50%</b></span>
-        <span class="odd">×1.5 <b>30%</b></span>
-        <span class="odd">×2 <b>15%</b></span>
-        <span class="odd">×2.5 <b>5%</b></span>
-      </div>
-      <button class="chest-btn" id="openChest">🎁 開ける<br><small id="chestCost">100 pt</small></button>
+      <span class="label" id="chestCost">100 pt</span>
+      <button class="chest-btn" id="openChest">🔓 宝箱を開ける</button>
     </div>
   </section>
-  <section class="upgrades">
-    <button class="up" id="upPower"><b>💪 タップ強化</b><span>威力 +1</span><span id="powerCost">50 pt</span></button>
-    <button class="up" id="upLevel"><b>✨ レベル強化</b><span>威力 +3・レベルUP</span><span id="levelCost">250 pt</span></button>
-  </section>
-  <footer class="footer"><span id="items">所持アイテム：なし</span><button id="titleBtn" style="border:0;background:transparent;color:inherit;padding:4px">タイトルへ</button></footer>
+  <div class="label" style="text-align:center" id="itemText">アイテム：なし</div>
 </main>
 </div>
-<div id="notice" class="notice" role="status" aria-live="polite"></div>
-<div id="over" class="over hidden"><h1>GAME OVER</h1><p>ぷにぷにの冒険は終わってしまった……</p><button id="restart">最初からやり直す</button></div>
+
+<div id="notice" class="notice" role="status"></div>
+<div id="over" class="over hidden">
+  <h1>GAME OVER</h1>
+  <div>冒険はここで終わってしまった……</div>
+  <button id="restart">最初からやり直す</button>
+</div>
+
 <script>
-(() => {
- const $=id=>document.getElementById(id);
- const fresh=()=>({points:0,power:1,taps:0,level:1,chests:0,mult:1,items:[],chestCost:100,powerCost:50,levelCost:250});
- let s=fresh(),timer;
- const fmt=n=>Math.floor(n).toLocaleString('ja-JP');
- function toast(msg){$('notice').textContent=msg;$('notice').classList.add('show');clearTimeout(timer);timer=setTimeout(()=>$('notice').classList.remove('show'),1600)}
- function render(){
-  $('points').textContent=fmt(s.points);$('power').textContent='+'+fmt(s.power*s.mult)+' pt';$('taps').textContent=fmt(s.taps)+' 回';
-  $('chests').textContent=fmt(s.chests)+' 個';$('lv').textContent='Lv. '+s.level;
-  $('mult').textContent='×'+s.mult.toFixed(1);$('sideMult').textContent='×'+s.mult.toFixed(1);
-  $('next').textContent='あと'+(10-s.taps%10)+'回';
-  $('chestCost').textContent=fmt(s.chestCost)+' pt';$('powerCost').textContent=fmt(s.powerCost)+' pt';$('levelCost').textContent=fmt(s.levelCost)+' pt';
-  $('openChest').disabled=s.points<s.chestCost;$('upPower').disabled=s.points<s.powerCost;$('upLevel').disabled=s.points<s.levelCost;
-  $('items').textContent=s.items.length?'所持アイテム：'+s.items.join('・'):'所持アイテム：なし';
+(()=>{
+const $=id=>document.getElementById(id);
+const enemies=[
+ {name:"スライム",art:"🟢",hp:10,atk:1,title:"スライム討伐者"},
+ {name:"森のゴブリン",art:"👺",hp:22,atk:3,title:"森の守護者"},
+ {name:"洞窟のオオカミ",art:"🐺",hp:40,atk:5,title:"洞窟の狩人"},
+ {name:"炎のゴーレム",art:"🔥",hp:75,atk:8,title:"炎を制した者"},
+ {name:"闇の騎士",art:"🗡️",hp:130,atk:12,title:"闇を砕く者"},
+ {name:"古竜",art:"🐉",hp:230,atk:17,title:"竜殺し"},
+ {name:"魔王",art:"👿",hp:400,atk:24,title:"魔王を超えし者"},
+ {name:"終焉の神",art:"🌌",hp:700,atk:32,title:"伝説の冒険者"}
+];
+let s,timer,enemyIndex,enemyHP;
+function fresh(){
+ s={points:0,power:3,maxHP:30,hp:30,kills:0,mult:1,chests:0,
+ chestCost:100,upgradeCost:50,items:[],title:"駆け出し"};
+ enemyIndex=0;enemyHP=enemies[0].hp;
+}
+const fmt=n=>Math.floor(n).toLocaleString("ja-JP");
+function toast(msg){
+ $("notice").textContent=msg;
+ $("notice").classList.add("show");
+ clearTimeout(timer);
+ timer=setTimeout(()=>$("notice").classList.remove("show"),1500);
+}
+function render(){
+ const e=enemies[enemyIndex];
+ $("points").textContent=fmt(s.points);
+ $("mult").textContent="×"+s.mult.toFixed(1);
+ $("power").textContent=fmt(s.power);
+ $("playerHP").textContent=fmt(s.hp)+"/"+fmt(s.maxHP);
+ $("kills").textContent=fmt(s.kills);
+ $("titleName").textContent="称号："+s.title;
+ $("enemyName").textContent=e.name;
+ $("enemyArt").textContent=e.art;
+ $("enemyInfo").textContent="敵HP "+fmt(enemyHP)+"/"+fmt(e.hp)+" ・ 攻撃力 "+e.atk;
+ $("enemyBar").style.width=Math.max(0,enemyHP/e.hp*100)+"%";
+ $("chestCost").textContent=fmt(s.chestCost)+" pt";
+ $("openChest").disabled=s.points<s.chestCost;
+ $("upgrade").disabled=s.points<s.upgradeCost;
+ $("upgrade").innerHTML="💪 攻撃力強化<span>攻撃力 +1 ・ "+fmt(s.upgradeCost)+" pt</span>";
+ $("itemText").textContent="所持アイテム："+(s.items.length?s.items.slice(-3).join("・"):"なし");
+}
+function start(){
+ fresh();$("title").classList.add("hidden");
+ $("game").classList.remove("hidden");$("over").classList.add("hidden");render();
+}
+function gameOver(){
+ $("game").classList.add("hidden");$("title").classList.add("hidden");
+ $("over").classList.remove("hidden");
+}
+function winEnemy(){
+ const e=enemies[enemyIndex];
+ s.kills++;s.points+=20+enemyIndex*15;
+ s.title=e.title;
+ toast("🏆 称号獲得："+s.title);
+ s.hp=Math.min(s.maxHP,s.hp+5);
+ if(enemyIndex<enemies.length-1){
+  enemyIndex++;enemyHP=enemies[enemyIndex].hp;
+ }else{
+  enemyIndex=0;enemyHP=enemies[0].hp;
+  toast("🌟 全ての敵を撃破！称号は維持される！");
  }
- function start(){s=fresh();$('title').classList.add('hidden');$('game').classList.remove('hidden');$('over').classList.add('hidden');render()}
- function gameOver(){$('game').classList.add('hidden');$('title').classList.add('hidden');$('over').classList.remove('hidden')}
- $('start').onclick=start;$('restart').onclick=start;
- $('titleBtn').onclick=()=>{$('game').classList.add('hidden');$('title').classList.remove('hidden')};
- $('tap').onclick=()=>{
-  s.taps++;let gain=Math.max(1,Math.floor(s.power*s.mult));s.points+=gain;
-  if(s.taps%10===0){s.level++;s.power++;toast('✨ レベルアップ！ タップ威力 +1')}
-  else toast('+'+fmt(gain)+' pt！');
-  render();
- };
- $('upPower').onclick=()=>{if(s.points<s.powerCost)return;s.points-=s.powerCost;s.power++;s.powerCost=Math.ceil(s.powerCost*1.65);toast('💪 タップ威力アップ！');render()};
- $('upLevel').onclick=()=>{if(s.points<s.levelCost)return;s.points-=s.levelCost;s.level++;s.power+=3;s.levelCost=Math.ceil(s.levelCost*1.8);toast('✨ ステータス大幅アップ！');render()};
- $('openChest').onclick=()=>{
-  if(s.points<s.chestCost)return;
-  s.points-=s.chestCost;s.chests++;s.chestCost=Math.ceil(s.chestCost*1.22);
-  if(Math.random()<.02){gameOver();return}
-  const r=Math.random();
-  if(r<.50){let prize=Math.max(20,s.power*20);s.points+=prize;toast('🎁 ポイント景品！ +'+fmt(prize)+' pt')}
-  else if(r<.80){s.mult=Math.max(s.mult,1.5);s.items.push('×1.5秘宝');toast('💎 倍率アップ！ ×1.5')}
-  else if(r<.95){s.mult=Math.max(s.mult,2);s.items.push('×2秘宝');toast('🌟 倍率アップ！ ×2')}
-  else{s.mult=Math.max(s.mult,2.5);s.items.push('×2.5秘宝');toast('👑 伝説の秘宝！ ×2.5')}
-  render();
- };
+}
+$("start").onclick=start;
+$("restart").onclick=start;
+$("tap").onclick=()=>{
+ const gain=Math.max(1,Math.floor(s.power*s.mult));
+ s.points+=gain;toast("+"+fmt(gain)+" pt");render();
+};
+$("fight").onclick=()=>{
+ const e=enemies[enemyIndex];
+ enemyHP-=s.power;
+ if(enemyHP<=0){
+  winEnemy();render();return;
+ }
+ s.hp-=e.atk;
+ if(s.hp<=0){gameOver();return;}
+ toast("⚔️ "+e.name+"に"+s.power+"ダメージ！");
+ render();
+};
+$("upgrade").onclick=()=>{
+ if(s.points<s.upgradeCost)return;
+ s.points-=s.upgradeCost;s.power++;
+ s.upgradeCost=Math.ceil(s.upgradeCost*1.6);
+ toast("💪 攻撃力が上がった！");render();
+};
+$("openChest").onclick=()=>{
+ if(s.points<s.chestCost)return;
+ s.points-=s.chestCost;s.chests++;
+ s.chestCost=Math.ceil(s.chestCost*1.22);
+ const r=Math.random();
+ if(r<.50){
+  const prize=Math.max(20,s.power*20);
+  s.points+=prize;toast("🎁 ポイント +"+fmt(prize));
+ }else if(r<.75){
+  s.mult=Math.max(s.mult,1.5);
+  s.items.push("倍率×1.5");toast("💎 倍率×1.5を獲得！");
+ }else if(r<.90){
+  s.mult=Math.max(s.mult,2);
+  s.items.push("倍率×2");toast("🌟 倍率×2を獲得！");
+ }else if(Math.random()<.5){
+  s.power++;s.items.push("攻撃力+1");
+  toast("🧪 アイテム！攻撃力+1");
+ }else{
+  s.maxHP+=5;s.hp+=5;s.items.push("最大HP+5");
+  toast("❤️ アイテム！最大HP+5");
+ }
+ render();
+};
+start();
 })();
 </script>
 </body>
