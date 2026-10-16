@@ -3,251 +3,155 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="theme-color" content="#fff0fa">
-<title>ぷにぷに探検隊</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#f3f6fc">
+<title>ぷにぷにファクトリー</title>
 <style>
 *{box-sizing:border-box}
-:root{--pink:#ff75b5;--purple:#9274ff;--yellow:#ffe37a;--ink:#514365}
-body{margin:0;background:linear-gradient(160deg,#fff3fb,#eef7ff 60%,#fff8df);color:var(--ink);font-family:system-ui,-apple-system,sans-serif;padding:14px 12px 40px}
-button{font:inherit;font-weight:800;border:0;border-radius:15px;padding:12px 14px;color:#fff;background:var(--pink);box-shadow:0 4px 0 #d95596;cursor:pointer}
-button:active{transform:translateY(3px);box-shadow:0 1px 0 #d95596}
-button:disabled{opacity:.45}
-.wrap{max-width:650px;margin:auto}
-header{text-align:center;padding:12px 4px}
-h1{font-size:clamp(25px,7vw,36px);margin:0;color:#ed65a6;text-shadow:2px 3px #fff}
-.sub{font-size:12px;font-weight:700;color:#9384a8}
-.panel{background:#ffffffdf;border:2px solid #fff;border-radius:22px;padding:15px;margin:12px 0;box-shadow:0 5px 18px #b8a4d522}
-h2{font-size:18px;margin:0 0 12px}
-.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.stat{background:#f6f0ff;border-radius:14px;padding:10px;font-size:13px;font-weight:700}
-.stat b{display:block;font-size:19px;color:#775bd6}
-.hero{text-align:center;background:linear-gradient(135deg,#ffe4f3,#e8e8ff);border-radius:20px;padding:14px}
-.mascot{font-size:85px;line-height:1.25;filter:drop-shadow(0 5px 0 #ffffff)}
-.name{font-size:19px;font-weight:900}
-.xp{height:10px;background:#e7dcf5;border-radius:99px;overflow:hidden;margin:8px 0}
-.xp div{height:100%;background:linear-gradient(90deg,#ff8bc6,#a18aff);width:0;transition:width .3s}
-.row{display:flex;gap:8px;flex-wrap:wrap}
-.row>*{flex:1}
-.secondary{background:var(--purple);box-shadow:0 4px 0 #7054d0}
-.gold{background:#ffbd4a;box-shadow:0 4px 0 #d9942a;color:#65451d}
-.soft{background:#b5a4c8;box-shadow:0 4px 0 #9581ac}
-.wheelbox{text-align:center;background:#fff6dc;border-radius:18px;padding:12px}
-.wheel{width:min(230px,68vw);aspect-ratio:1;border-radius:50%;margin:8px auto 14px;border:8px solid white;outline:4px solid #ffcf68;background:conic-gradient(#ff8cbb 0 25%,#ffe27d 25% 50%,#88d9d0 50% 75%,#aa96ff 75%);display:grid;place-items:center;position:relative;box-shadow:0 5px 0 #e7b84f,0 8px 20px #bd9e5a55}
-.wheel:before{content:"";position:absolute;inset:17%;border:3px dashed #ffffffc9;border-radius:50%}
-.wheel span{font-size:48px;z-index:1;text-shadow:0 3px white}
-.wheel:after{content:"▼";position:absolute;top:-17px;color:#ef5c9f;font-size:28px;text-shadow:0 2px white}
-.spinning{animation:spin .8s cubic-bezier(.15,.8,.2,1)}
-@keyframes spin{to{transform:rotate(1080deg)}}
-.small{font-size:12px;color:#897d9b;line-height:1.6}
-.item{display:flex;gap:10px;align-items:center;background:#f8f4ff;border-radius:13px;padding:9px;margin:7px 0;font-size:13px}
-.item .emoji{font-size:30px}
-.item .desc{flex:1}
-.item b{display:block}
-.enemy{font-size:57px;text-align:center}
-.notice{background:#fff1f7;border-radius:13px;padding:11px;font-weight:700;font-size:13px;min-height:42px;margin-top:10px}
-.tag{display:inline-block;border-radius:99px;background:#f0e7ff;padding:4px 8px;font-size:11px;font-weight:800;margin:2px}
-#titles{display:flex;gap:5px;flex-wrap:wrap}
-footer{text-align:center;font-size:11px;color:#9c8fac;padding:15px}
+body{margin:0;background:#f3f6fc;color:#25334a;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+.app{height:100dvh;max-width:440px;margin:auto;padding: max(8px,env(safe-area-inset-top)) 12px max(8px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:7px;overflow:hidden}
+.hidden{display:none!important}
+button:disabled{opacity:.4}
+.title-screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:17px}
+.logo{font-size:34px;font-weight:900;line-height:1.12;margin:0}
+.sub{color:#758198;font-size:12px}
+.primary{background:#5d9ce8;color:white;font-weight:900;border:0;border-radius:14px;padding:14px 24px;width:100%;max-width:290px;box-shadow:0 4px #3975bd}
+.mascot{width:clamp(112px,32vw,148px);aspect-ratio:1;display:grid;place-items:center;filter:drop-shadow(0 8px 7px #45689a25)}
+.slime{width:100%;height:88%;position:relative;border:3px solid #5594dc;border-radius:48% 52% 43% 45%/58% 60% 40% 42%;background:radial-gradient(circle at 30% 22%,#fff 0 5%,#d6f4ff 6% 15%,#8ed3ff 45%,#5797e6 100%);animation:bob 2s ease-in-out infinite}
+.slime:before{content:"";position:absolute;left:23%;top:34%;width:13%;height:19%;background:#23334e;border-radius:50%;box-shadow:57px 0 #23334e}
+.slime:after{content:"";position:absolute;left:43%;top:55%;width:17%;height:9%;border-bottom:3px solid #23334e;border-radius:50%}
+.cheek{position:absolute;top:57%;width:16%;height:8%;border-radius:50%;background:#ff9db1}
+.cheek.left{left:15%}.cheek.right{right:15%}
+@keyframes bob{50%{transform:translateY(-5px)}}
+#game{display:flex;flex-direction:column;gap:7px;flex:1;min-height:0}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:900}
+.lv{background:#e1ecff;color:#3768a6;padding:5px 9px;border-radius:99px;font-size:12px}
+.panel{background:white;border:1px solid #e4eaf3;border-radius:13px;padding:9px 11px}
+.points{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.label{font-size:10px;color:#7a879b}
+.big{font-size:27px;line-height:1.15;font-weight:900}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.stat{background:white;border:1px solid #e4eaf3;border-radius:10px;padding:7px;min-width:0}
+.val{font-size:13px;font-weight:900;margin-top:3px;white-space:nowrap}
+.play{display:flex;align-items:center;justify-content:center;gap:10px;flex:1;min-height:0}
+.tap{display:flex;flex-direction:column;align-items:center;gap:5px;background:transparent;border:0;padding:0}
+.tap .mascot{width:clamp(105px,30vw,140px)}
+.hint{font-size:11px;font-weight:900;color:#4e8bd7}
+.side{display:flex;flex-direction:column;gap:6px;width:100px}
+.chip{background:white;border:1px solid #e4eaf3;border-radius:10px;padding:8px;font-size:10px;color:#78859a}
+.chip b{display:block;color:#26334a;font-size:14px;margin-top:3px}
+.chest{background:white;border:1px solid #e4eaf3;border-radius:13px;padding:8px 9px}
+.chest-head{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:900;margin-bottom:6px}
+.odds{display:flex;gap:4px;flex-wrap:wrap}
+.odd{background:#f0f4fa;border-radius:5px;padding:4px 5px;font-size:9px;color:#526078;white-space:nowrap}
+.chest-row{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.chest-btn{border:0;border-radius:10px;background:#efbd58;color:#5b3d0b;font-weight:900;padding:9px 12px;white-space:nowrap;box-shadow:0 3px #c18a29}
+.upgrades{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.up{background:white;border:1px solid #e2e8f2;border-radius:10px;padding:8px;text-align:left;color:#26334a;min-width:0}
+.up b{display:block;font-size:11px}.up span{display:block;font-size:10px;color:#718096;margin-top:3px}
+.footer{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#78859a}
+.notice{position:fixed;z-index:10;top:calc(env(safe-area-inset-top) + 10px);left:50%;transform:translate(-50%,-10px);opacity:0;transition:.18s;background:#25334a;color:white;border-radius:99px;padding:10px 15px;font-size:12px;font-weight:900;white-space:nowrap;pointer-events:none}
+.notice.show{opacity:1;transform:translate(-50%,0)}
+.over{position:fixed;inset:0;background:#000;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
+.over h1{font-size:clamp(38px,11vw,54px);color:#ff2020;margin:0 0 12px;letter-spacing:2px}
+.over p{font-size:12px;color:#aaa;margin:0 0 25px}
+.over button{background:#111;color:#ff3030;border:1px solid #a00;border-radius:12px;padding:13px 22px;font-weight:900}
+@media(max-height:650px){.app{gap:4px;padding-top:5px;padding-bottom:5px}#game{gap:4px}.panel{padding:7px 9px}.stat{padding:5px}.tap .mascot{width:100px}.chest{padding:6px 8px}.up{padding:6px}.play{flex:1}}
 </style>
 </head>
 <body>
-<div class="wrap">
-<header>
-<h1>🍭 ぷにぷに探検隊 🍭</h1>
-<div class="sub">〜 運命のルーレット 〜</div>
-</header>
-
-<section class="panel">
-<div class="hero">
-<div class="mascot" id="mascot">🐣</div>
-<div class="name" id="charName">ぷにまる</div>
-<div>レベル <b id="level">1</b> ・ <span id="expText">EXP 0/10</span></div>
-<div class="xp"><div id="xpBar"></div></div>
-<div class="small" id="heroText">のんびり育成中！</div>
-</div>
-<div class="stats" style="margin-top:10px">
-<div class="stat">⚔️ 攻撃力 <b id="atk">2</b></div>
-<div class="stat">🛡️ 防御力 <b id="def">1</b></div>
-<div class="stat">💖 体力 <b id="hp">10</b></div>
-<div class="stat">🍀 運 <b id="luck">0</b></div>
-</div>
+<div class="app">
+<section id="title" class="title-screen">
+  <div class="mascot"><div class="slime"><i class="cheek left"></i><i class="cheek right"></i></div></div>
+  <h1 class="logo">ぷにぷに<br>ファクトリー</h1>
+  <div class="sub">タップで稼いで、宝箱から秘宝をゲット！</div>
+  <button class="primary" id="start">▶ ゲームスタート</button>
+  <div class="sub">タップでポイントを集めて<br>レアな倍率アイテムを手に入れよう！</div>
 </section>
 
-<section class="panel">
-<h2>🎡 運命のルーレット</h2>
-<div class="wheelbox">
-<div class="wheel" id="wheel"><span>🎁</span></div>
-<div><b>🎟️ 抽選チケット：<span id="tickets">0</span> / 10</b></div>
-<div class="small">時間経過でチケット獲得（上限10枚）</div>
-<div class="row" style="margin-top:13px">
-<button id="spinBtn" onclick="spin()">🎰 1回まわす</button>
-<button class="gold" id="autoBtn" onclick="toggleAuto()">🔁 自動：OFF</button>
+<main id="game" class="hidden">
+  <header class="top"><span>ぷにぷにファクトリー</span><span class="lv" id="lv">Lv. 1</span></header>
+  <section class="panel points">
+    <div><div class="label">所持ポイント</div><span class="big" id="points">0</span> <span class="label">pt</span></div>
+    <div style="text-align:right"><div class="label">タップ倍率</div><div class="big" style="font-size:22px" id="mult">×1.0</div></div>
+  </section>
+  <section class="stats">
+    <div class="stat"><div class="label">タップ威力</div><div class="val" id="power">+1 pt</div></div>
+    <div class="stat"><div class="label">累計タップ</div><div class="val" id="taps">0 回</div></div>
+    <div class="stat"><div class="label">宝箱</div><div class="val" id="chests">0 個</div></div>
+  </section>
+  <section class="play">
+    <button class="tap" id="tap" aria-label="主人公をタップ">
+      <div class="mascot"><div class="slime"><i class="cheek left"></i><i class="cheek right"></i></div></div>
+      <span class="hint">タップしてポイントGET！</span>
+    </button>
+    <div class="side">
+      <div class="chip">現在の倍率<b id="sideMult">×1.0</b></div>
+      <div class="chip">次のレベル<b id="next">あと10回</b></div>
+    </div>
+  </section>
+  <section class="chest">
+    <div class="chest-head"><span>🗝️ 秘宝の宝箱</span><span class="label">景品確率</span></div>
+    <div class="chest-row">
+      <div class="odds">
+        <span class="odd">ポイント <b>50%</b></span>
+        <span class="odd">×1.5 <b>30%</b></span>
+        <span class="odd">×2 <b>15%</b></span>
+        <span class="odd">×2.5 <b>5%</b></span>
+      </div>
+      <button class="chest-btn" id="openChest">🎁 開ける<br><small id="chestCost">100 pt</small></button>
+    </div>
+  </section>
+  <section class="upgrades">
+    <button class="up" id="upPower"><b>💪 タップ強化</b><span>威力 +1</span><span id="powerCost">50 pt</span></button>
+    <button class="up" id="upLevel"><b>✨ レベル強化</b><span>威力 +3・レベルUP</span><span id="levelCost">250 pt</span></button>
+  </section>
+  <footer class="footer"><span id="items">所持アイテム：なし</span><button id="titleBtn" style="border:0;background:transparent;color:inherit;padding:4px">タイトルへ</button></footer>
+</main>
 </div>
-<div class="small" style="margin-top:9px">レアアイテムが出るかも？ でも運命は誰にも分からない…</div>
-</div>
-<div id="result" class="notice">ルーレットを回して、冒険の準備をしよう！</div>
-<div class="small" style="margin-top:8px">⚠️ 抽選ごとに、非常にまれなゲームオーバー判定があります。</div>
-</section>
-
-<section class="panel">
-<h2>🎒 アイテム図鑑</h2>
-<div class="small">入手したアイテムの効果は少しずつ累積するよ。</div>
-<div id="inventory"></div>
-</section>
-
-<section class="panel">
-<h2>⚔️ モンスター広場</h2>
-<div class="enemy" id="enemyEmoji">🟢</div>
-<div style="text-align:center;font-weight:900;font-size:18px" id="enemyName">ぷよスライム</div>
-<div class="small" style="text-align:center;margin:5px">敵の強さ：<span id="enemyPower">1</span> ・ 討伐数：<span id="kills">0</span></div>
-<div class="row" style="margin-top:12px">
-<button class="secondary" onclick="fight()">⚔️ バトル！</button>
-<button class="soft" onclick="nextEnemy()">➡️ 次の敵</button>
-</div>
-<div id="battleResult" class="notice">勝てそうな相手を選んで挑戦しよう！</div>
-</section>
-
-<section class="panel">
-<h2>🏅 称号コレクション</h2>
-<div id="titles"><span class="tag">まだ称号がないよ</span></div>
-</section>
-
-<section class="panel">
-<h2>📘 探検記録</h2>
-<div class="stats">
-<div class="stat">🎁 抽選回数 <b id="spins">0</b></div>
-<div class="stat">👾 討伐数 <b id="totalKills">0</b></div>
-</div>
-<div class="row" style="margin-top:12px">
-<button class="soft" onclick="saveGame(true)">💾 セーブ</button>
-<button class="soft" onclick="resetGame()">🔄 最初から</button>
-</div>
-<div class="small" style="margin-top:8px">この端末のブラウザに自動保存されるよ。</div>
-</section>
-<footer>ぷにぷに探検隊 © きみの冒険<br>のんびり、コツコツ、伝説をめざそう！</footer>
-</div>
+<div id="notice" class="notice" role="status" aria-live="polite"></div>
+<div id="over" class="over hidden"><h1>GAME OVER</h1><p>ぷにぷにの冒険は終わってしまった……</p><button id="restart">最初からやり直す</button></div>
 <script>
-const ITEMS=[
-{id:"cookie",name:"おやつクッキー",emoji:"🍪",rarity:"ノーマル",weight:400,desc:"攻撃 +0.2",atk:.2,def:0,hp:0,luck:0},
-{id:"leaf",name:"まもりの葉っぱ",emoji:"🍃",rarity:"ノーマル",weight:300,desc:"防御 +0.2",atk:0,def:.2,hp:0,luck:0},
-{id:"berry",name:"げんきベリー",emoji:"🍓",rarity:"ノーマル",weight:200,desc:"体力 +0.5",atk:0,def:0,hp:.5,luck:0},
-{id:"clover",name:"四つ葉のお守り",emoji:"🍀",rarity:"レア",weight:70,desc:"運 +0.5",atk:0,def:0,hp:0,luck:.5},
-{id:"star",name:"お星さまキャンディ",emoji:"🌟",rarity:"超レア",weight:25,desc:"攻撃 +0.5 / 運 +0.3",atk:.5,def:0,hp:0,luck:.3},
-{id:"crown",name:"伝説の王冠",emoji:"👑",rarity:"伝説",weight:5,desc:"攻撃 +1 / 防御 +0.5 / 体力 +1",atk:1,def:.5,hp:1,luck:0}
-];
-const ENEMIES=[
-{name:"ぷよスライム",emoji:"🟢",power:1},
-{name:"きのこ隊長",emoji:"🍄",power:3},
-{name:"おばけキャンディ",emoji:"👻",power:6},
-{name:"いたずらドラゴン",emoji:"🐲",power:10},
-{name:"虹色フェニックス",emoji:"🦄",power:16},
-{name:"宇宙の大王",emoji:"👾",power:25},
-{name:"銀河の魔王",emoji:"🐉",power:40}
-];
-const BASE={level:1,exp:0,tickets:0,atk:2,def:1,hp:10,luck:0,spins:0,kills:0,enemy:0,auto:false,dead:false,bag:{},titles:[],last:Date.now(),best:0};
-let g;
-function fresh(){return JSON.parse(JSON.stringify(BASE))}
-function load(){
- try{const old=JSON.parse(localStorage.getItem("punipuniSave"));g=old?{...fresh(),...old,bag:old.bag||{},titles:old.titles||[]}:fresh()}catch(e){g=fresh()}
- if(g.dead){}else{
- const elapsed=Math.min(10,Math.max(0,Math.floor((Date.now()-(g.last||Date.now()))/30000)));
- g.tickets=Math.min(10,g.tickets+elapsed);
+(() => {
+ const $=id=>document.getElementById(id);
+ const fresh=()=>({points:0,power:1,taps:0,level:1,chests:0,mult:1,items:[],chestCost:100,powerCost:50,levelCost:250});
+ let s=fresh(),timer;
+ const fmt=n=>Math.floor(n).toLocaleString('ja-JP');
+ function toast(msg){$('notice').textContent=msg;$('notice').classList.add('show');clearTimeout(timer);timer=setTimeout(()=>$('notice').classList.remove('show'),1600)}
+ function render(){
+  $('points').textContent=fmt(s.points);$('power').textContent='+'+fmt(s.power*s.mult)+' pt';$('taps').textContent=fmt(s.taps)+' 回';
+  $('chests').textContent=fmt(s.chests)+' 個';$('lv').textContent='Lv. '+s.level;
+  $('mult').textContent='×'+s.mult.toFixed(1);$('sideMult').textContent='×'+s.mult.toFixed(1);
+  $('next').textContent='あと'+(10-s.taps%10)+'回';
+  $('chestCost').textContent=fmt(s.chestCost)+' pt';$('powerCost').textContent=fmt(s.powerCost)+' pt';$('levelCost').textContent=fmt(s.levelCost)+' pt';
+  $('openChest').disabled=s.points<s.chestCost;$('upPower').disabled=s.points<s.powerCost;$('upLevel').disabled=s.points<s.levelCost;
+  $('items').textContent=s.items.length?'所持アイテム：'+s.items.join('・'):'所持アイテム：なし';
  }
- g.last=Date.now();render();
-}
-function saveGame(show=false){g.last=Date.now();try{localStorage.setItem("punipuniSave",JSON.stringify(g));if(show)msg("result","💾 セーブしたよ！また続きから遊べるよ。")}catch(e){if(show)msg("result","保存できなかったよ。ブラウザ設定を確認してね。")}}
-function msg(id,s){document.getElementById(id).textContent=s}
-function totalStat(key){return g[key]}
-function getItem(id){return ITEMS.find(x=>x.id===id)}
-function inventoryRender(){
- const el=document.getElementById("inventory");
- const owned=ITEMS.filter(i=>g.bag[i.id]);
- if(!owned.length){el.innerHTML='<div class="small">まだアイテムがないよ。ルーレットを回してみよう！</div>';return}
- el.innerHTML=owned.map(i=>`<div class="item"><div class="emoji">${i.emoji}</div><div class="desc"><b>${i.name} <span class="tag">${i.rarity}</span></b><span>${i.desc}</span></div><b>×${g.bag[i.id]}</b></div>`).join("");
-}
-function render(){
- document.getElementById("tickets").textContent=g.tickets;
- document.getElementById("level").textContent=g.level;
- document.getElementById("expText").textContent=`EXP ${g.exp}/${g.level*10}`;
- document.getElementById("xpBar").style.width=(g.exp/(g.level*10)*100)+"%";
- document.getElementById("atk").textContent=g.atk.toFixed(1).replace(".0","");
- document.getElementById("def").textContent=g.def.toFixed(1).replace(".0","");
- document.getElementById("hp").textContent=g.hp.toFixed(1).replace(".0","");
- document.getElementById("luck").textContent=g.luck.toFixed(1).replace(".0","");
- document.getElementById("spins").textContent=g.spins;
- document.getElementById("kills").textContent=g.kills;
- document.getElementById("totalKills").textContent=g.kills;
- document.getElementById("mascot").textContent=g.dead?"💀":g.level>=10?"🐲":g.level>=5?"🐱":"🐣";
- document.getElementById("charName").textContent=g.dead?"ぼうけん おしまい":g.level>=10?"ぷにまる・進化形":g.level>=5?"ぷにまる・成長中":"ぷにまる";
- document.getElementById("heroText").textContent=g.dead?"この冒険は終わりました。":`アイテムの力で少しずつ成長中！`;
- document.getElementById("enemyEmoji").textContent=ENEMIES[g.enemy].emoji;
- document.getElementById("enemyName").textContent=ENEMIES[g.enemy].name;
- document.getElementById("enemyPower").textContent=ENEMIES[g.enemy].power;
- document.getElementById("spinBtn").disabled=g.dead||g.tickets<1;
- document.getElementById("autoBtn").disabled=g.dead;
- document.getElementById("autoBtn").textContent="🔁 自動："+(g.auto?"ON":"OFF");
- document.getElementById("titles").innerHTML=g.titles.length?g.titles.map(t=>`<span class="tag">🏅 ${t}</span>`).join(""):'<span class="tag">まだ称号がないよ</span>';
- inventoryRender();
-}
-function addTitle(t){if(!g.titles.includes(t))g.titles.push(t)}
-function spin(){
- if(g.dead||g.tickets<1)return;
- g.tickets--;g.spins++;
- const wheel=document.getElementById("wheel");
- wheel.classList.remove("spinning");void wheel.offsetWidth;wheel.classList.add("spinning");
- if(Math.random()<0.00001){
- g.dead=true;g.auto=false;g.last=Date.now();saveGame();
- msg("result","☄️ 運命のいたずら……！ キャラクターが倒れてしまった。ゲームオーバー！");
- msg("battleResult","冒険はここで終了。最初からボタンで新しい冒険を始められるよ。");
- render();return;
- }
- const total=ITEMS.reduce((a,i)=>a+i.weight,0);
- let r=Math.random()*total,item=ITEMS[0];
- for(const i of ITEMS){r-=i.weight;if(r<0){item=i;break}}
- g.bag[item.id]=(g.bag[item.id]||0)+1;
- g.atk+=item.atk;g.def+=item.def;g.hp+=item.hp;g.luck+=item.luck;
- if(item.rarity==="レア")addTitle("お守りコレクター");
- if(item.rarity==="超レア")addTitle("星をつかむ者");
- if(item.rarity==="伝説")addTitle("伝説の持ち主");
- g.exp+=2;
- while(g.exp>=g.level*10){g.exp-=g.level*10;g.level++;g.atk+=.5;g.hp+=1;addTitle("すくすく成長中")}
- if(g.spins>=10)addTitle("運命の挑戦者");
- msg("result",`${item.emoji} ${item.rarity}！「${item.name}」をゲット！ ${item.desc}`);
- render();saveGame();
-}
-function toggleAuto(){if(g.dead)return;g.auto=!g.auto;render();saveGame();msg("result",g.auto?"🔁 自動ルーレットON！チケットがあると自動で回すよ。":"自動ルーレットをOFFにしたよ。")}
-function fight(){
- if(g.dead)return;
- const e=ENEMIES[g.enemy];
- const score=g.atk+g.def*.4+g.hp*.08+Math.random()*2;
- const needed=e.power*1.25;
- if(score>=needed){
- g.kills++;g.exp+=e.power*2;g.tickets=Math.min(10,g.tickets+1);
- addTitle("はじめての勝利");
- if(g.kills>=5)addTitle("モンスター退治の達人");
- if(g.kills>=10)addTitle("伝説の探検家");
- if(g.enemy>=3)addTitle("強敵ハンター");
- while(g.exp>=g.level*10){g.exp-=g.level*10;g.level++;g.atk+=.5;g.hp+=1;addTitle("すくすく成長中")}
- msg("battleResult",`🎉 ${e.name}を倒した！ EXPとチケットを獲得！`);
- }else{
- msg("battleResult",`💦 ${e.name}にはまだ勝てないみたい。アイテムを集めて強くなろう！`);
- }
- render();saveGame();
-}
-function nextEnemy(){if(g.dead)return;g.enemy=(g.enemy+1)%ENEMIES.length;render();msg("battleResult","相手を変えたよ。強さを確認して挑戦しよう！");saveGame()}
-function resetGame(){
- if(!confirm("本当に最初からやり直す？ 今のセーブデータは消えるよ。"))return;
- g=fresh();saveGame();render();msg("result","新しい冒険の始まり！");msg("battleResult","まずはチケットを集めよう！");
-}
-load();
-setInterval(()=>{
- if(!g.dead){
- if(g.tickets<10&&Date.now()-g.last>=30000){g.tickets++;g.last=Date.now();saveGame();render()}
- if(g.auto&&g.tickets>0&&!document.getElementById("wheel").classList.contains("spinning"))spin();
- }
-},1000);
-window.addEventListener("pagehide",()=>saveGame());
+ function start(){s=fresh();$('title').classList.add('hidden');$('game').classList.remove('hidden');$('over').classList.add('hidden');render()}
+ function gameOver(){$('game').classList.add('hidden');$('title').classList.add('hidden');$('over').classList.remove('hidden')}
+ $('start').onclick=start;$('restart').onclick=start;
+ $('titleBtn').onclick=()=>{$('game').classList.add('hidden');$('title').classList.remove('hidden')};
+ $('tap').onclick=()=>{
+  s.taps++;let gain=Math.max(1,Math.floor(s.power*s.mult));s.points+=gain;
+  if(s.taps%10===0){s.level++;s.power++;toast('✨ レベルアップ！ タップ威力 +1')}
+  else toast('+'+fmt(gain)+' pt！');
+  render();
+ };
+ $('upPower').onclick=()=>{if(s.points<s.powerCost)return;s.points-=s.powerCost;s.power++;s.powerCost=Math.ceil(s.powerCost*1.65);toast('💪 タップ威力アップ！');render()};
+ $('upLevel').onclick=()=>{if(s.points<s.levelCost)return;s.points-=s.levelCost;s.level++;s.power+=3;s.levelCost=Math.ceil(s.levelCost*1.8);toast('✨ ステータス大幅アップ！');render()};
+ $('openChest').onclick=()=>{
+  if(s.points<s.chestCost)return;
+  s.points-=s.chestCost;s.chests++;s.chestCost=Math.ceil(s.chestCost*1.22);
+  if(Math.random()<.02){gameOver();return}
+  const r=Math.random();
+  if(r<.50){let prize=Math.max(20,s.power*20);s.points+=prize;toast('🎁 ポイント景品！ +'+fmt(prize)+' pt')}
+  else if(r<.80){s.mult=Math.max(s.mult,1.5);s.items.push('×1.5秘宝');toast('💎 倍率アップ！ ×1.5')}
+  else if(r<.95){s.mult=Math.max(s.mult,2);s.items.push('×2秘宝');toast('🌟 倍率アップ！ ×2')}
+  else{s.mult=Math.max(s.mult,2.5);s.items.push('×2.5秘宝');toast('👑 伝説の秘宝！ ×2.5')}
+  render();
+ };
+})();
 </script>
 </body>
 </html>
