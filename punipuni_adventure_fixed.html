@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#10182c">
+<link rel="apple-touch-icon" href="./IMG_0849.jpeg">
+<title>ぷにぷにアドベンチャー</title>
+<style>
+*{box-sizing:border-box} :root{color-scheme:dark}
+body{margin:0;background:#10182c;color:#f7f8ff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;text-align:center}
+button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opacity:.4;cursor:not-allowed}
+.screen{display:none;min-height:100vh}.screen.active{display:flex}
+#titleScreen,#introScreen{align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden;background:linear-gradient(#10182c65,#080e20d9),radial-gradient(ellipse at 50% 25%,#557ebc,#1b3152 45%,#10182c 80%)}
+#titleScreen:before,#introScreen:before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(115deg,transparent 0 40px,#ffffff05 41px 42px)}
+.title-content,.intro-content{position:relative;z-index:1;width:min(100%,440px)}
+.logo{font-size:clamp(32px,8vw,48px);font-weight:1000;text-shadow:0 0 24px #62eaff88}
+.logo-slime{font-size:90px;filter:drop-shadow(0 0 22px #4cecff);margin:20px 0}
+.tagline{font-size:14px;color:#c8d8f6;line-height:1.9}
+.primary{border:0;border-radius:14px;padding:15px 20px;width:100%;margin-top:22px;color:#11213b;font-weight:1000;font-size:18px;background:linear-gradient(100deg,#8cf5ff,#d0ffec);box-shadow:0 5px 0 #4387a9}
+.intro-scene{font-size:70px;margin:10px}.dialogue{background:#101a31ef;border:2px solid #8ab9f5;border-radius:16px;padding:22px 18px;margin-top:22px;line-height:1.9;text-align:left;box-shadow:0 0 35px #5fa7ff30}.dialogue strong{color:#ffe28b}
+#game{display:none;width:min(100%,520px);margin:auto;padding:12px 14px 24px}#game.active{display:block}
+h1{font-size:23px;margin:4px 0}.subtitle{color:#9daaca;font-size:12px;margin:5px 0 10px}
+.title-box{padding:8px;border:1px solid #384566;border-radius:12px;background:#1a2540;margin-bottom:10px;font-size:13px}.title-box strong{color:#ffe58a}
+.topline{display:flex;gap:8px;margin:8px 0}.points{background:#202c49;border-radius:12px;padding:10px;flex:1;font-size:13px;color:#c8d6ff}.points strong{display:block;font-size:23px;color:#fff;margin-top:2px}.mult{color:#ffe58a!important}
+.slime-area{background:radial-gradient(ellipse,#283e66,#151e34);border:1px solid #344669;border-radius:20px;padding:13px 8px 10px;margin:10px 0}
+.slime{position:relative;width:120px;height:91px;margin:6px auto 8px;border-radius:54% 54% 42% 42% / 68% 68% 35% 35%;background:linear-gradient(145deg,#b7ffff,#65f2f0 32%,#25c9df 72%,#1197c4);box-shadow:inset -8px -8px 0 #078db4,inset 7px 6px 0 #e1ffff,0 9px 25px #25d9ed50;animation:bounce 1.8s ease-in-out infinite}
+.slime:before{content:"";position:absolute;width:29px;height:13px;left:20px;top:12px;background:#fff;border-radius:50%;transform:rotate(-28deg)}
+.eye{position:absolute;top:37px;width:10px;height:15px;border-radius:50%;background:#15334d;box-shadow:inset 2px 1px 0 #fff}.eye.left{left:34px}.eye.right{right:34px}.mouth{position:absolute;left:52px;top:55px;width:16px;height:9px;border-bottom:3px solid #16445b;border-radius:0 0 50% 50%}.blush{position:absolute;top:54px;width:18px;height:8px;border-radius:50%;background:#ff9ab8;opacity:.8}.blush.left{left:19px}.blush.right{right:19px}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.tap-hint{font-size:12px;color:#c5efff}.action-button{width:100%;padding:12px 8px;border:0;border-radius:12px;font-weight:900;margin-top:7px}.tap-button{background:linear-gradient(90deg,#16a9d7,#49d8e5);color:#06243b;font-size:17px;box-shadow:0 4px 0 #087eaa}
+.section{background:#19243d;border:1px solid #303e5e;border-radius:15px;padding:11px;margin:10px 0}.section h2{font-size:15px;margin:0 0 9px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.stat{position:relative;overflow:hidden;background:#26324d;border:1px solid #3a4969;border-radius:12px;padding:9px 3px;min-height:77px}.watermark{position:absolute;font-size:43px;opacity:.2;right:1px;bottom:-6px;line-height:1}.stat .label{font-size:11px;color:#c4cce0;position:relative}.stat .value{font-size:21px;font-weight:900;margin-top:5px;position:relative}
+.hp{background:linear-gradient(135deg,#482637,#263047)}.hp .value{color:#ff9aa8}.atk{background:linear-gradient(135deg,#4a3826,#263047)}.atk .value{color:#ffd18c}.def{background:linear-gradient(135deg,#243d55,#263047)}.def .value{color:#9ed2ff}
+.inventory{font-size:12px;color:#cbd5ef;line-height:1.9;margin-top:8px}
+.enemy-scene{position:relative;isolation:isolate;overflow:hidden;border:1px solid #536789;border-radius:15px;padding:15px 10px 12px;margin-bottom:10px;background:#24334b}.enemy-scene:before{content:"";position:absolute;inset:0;z-index:-2;background:var(--scene)}.enemy-scene:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#07102035,#071020d9)}
+.enemy-name{font-size:20px;font-weight:1000;text-shadow:0 2px 8px #000;margin:3px 0}.enemy-desc{font-size:12px;color:#e0e7f8;margin:5px 0 12px}
+.scene-0{--scene:radial-gradient(circle at 50% 45%,#8de6c6,#326f68 38%,#152f42 78%)}.scene-1{--scene:linear-gradient(140deg,#7ab55c,#245d35 40%,#152a26)}.scene-2{--scene:radial-gradient(ellipse at 50% 25%,#8394a6,#3c4d65 40%,#101729 85%)}.scene-3{--scene:radial-gradient(ellipse at 50% 80%,#ffb13b,#b84122 35%,#401c2b 75%)}.scene-4{--scene:linear-gradient(145deg,#5c536d,#262239 45%,#101020)}.scene-5{--scene:radial-gradient(ellipse at 50% 15%,#c2dfff,#3c5f88 35%,#101d39 80%)}.scene-6{--scene:linear-gradient(135deg,#642d55,#291b3e 50%,#0b0b1c)}.scene-7{--scene:radial-gradient(ellipse at 50% 20%,#b3a5ff,#3b277a 32%,#100e2d 75%)}
+.hp-track{height:12px;border-radius:20px;background:#0c1324;overflow:hidden}.hp-fill{height:100%;width:100%;background:linear-gradient(90deg,#ff536b,#ff8b6a);transition:width .25s}.enemy-hp{font-size:12px;color:#ffb6bd;margin-top:5px}
+.attack-button{background:linear-gradient(90deg,#ff875c,#ffbd70);color:#3b1b10}.heal-button{background:linear-gradient(90deg,#4acb85,#a5ed9d);color:#0b3524}.ticket-button{background:linear-gradient(90deg,#b99aff,#e0c8ff);color:#281344}.ticket-button.enabled{background:linear-gradient(90deg,#ffdf70,#fff1b0);box-shadow:0 0 14px #ffe28b88}
+.chest-button{background:linear-gradient(90deg,#f4c35e,#ffdf91);color:#422b08;font-size:17px;padding:13px}.chest-icon{font-size:37px;vertical-align:middle;margin-right:8px}.diamond-button{background:linear-gradient(100deg,#67eaff,#b99aff,#ffe28b);color:#171534;font-size:16px;padding:14px;box-shadow:0 0 15px #7a9dff55}
+.odds{font-size:12px;line-height:1.9;text-align:left;padding:9px 10px;background:#10182c;border-radius:11px;margin:0 0 9px}.odds-title{font-size:12px;color:#dce6ff;font-weight:900;margin-bottom:4px}.odds-row{display:flex;justify-content:space-between;gap:10px}.c-ticket{color:#fff08a}.c-herb{color:#54ff9a}.c-mult{color:#c69bff}.c-atk{color:#ffb56b}.c-def{color:#83d3ff}.c-hp{color:#ff7c9a}.c-death{color:#ff4d62}.chest-info{font-size:12px;color:#c4cde1;margin-top:7px}.message{min-height:22px;font-size:12px;color:#b8c9ed;margin-top:8px}
+.tool-item{display:flex;align-items:center;gap:9px;text-align:left;background:#10182c;border:1px solid #354565;border-radius:12px;padding:10px;margin-top:8px}.tool-icon{font-size:28px;width:38px;text-align:center;flex-shrink:0}.tool-info{flex:1;font-size:12px;line-height:1.6;min-width:0}.tool-info strong{display:block;color:#ffe28b;font-size:14px}.tool-count{color:#9daaca;font-size:11px}.tool-use{border:0;border-radius:9px;padding:9px 12px;background:linear-gradient(100deg,#8cf5ff,#d0ffec);color:#11213b;font-weight:900}
+#overlay{display:none;position:fixed;inset:0;z-index:20;align-items:center;justify-content:center;padding:15px;background:#050814f5}#overlay.show{display:flex}#overlay.warning{background:#09030af5}#overlay.reward{background:radial-gradient(circle,#17233c,#050814 78%)}#overlay.diamond{background:radial-gradient(circle,#27305b,#09051e 75%)}
+.reward-panel{width:100%;height:90vh;max-height:780px;min-height:400px;border-radius:24px;border:2px solid var(--glow,#fff);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden;background:radial-gradient(circle at center,var(--light,#ffffff35),#10172c 68%);box-shadow:0 0 45px var(--glow,#fff),inset 0 0 55px var(--light,#ffffff22);animation:popin .45s cubic-bezier(.2,1.4,.4,1)}
+.reward-panel:before{content:"";position:absolute;inset:-40%;background:conic-gradient(transparent,var(--light,#ffffff30),transparent 25%);animation:spin 4s linear infinite;pointer-events:none}.reward-panel>*{position:relative;z-index:1}
+@keyframes popin{from{transform:scale(.45);opacity:0}to{transform:scale(1);opacity:1}}@keyframes spin{to{transform:rotate(360deg)}}
+.reward-kicker{font-size:15px;letter-spacing:4px;color:#e4eaff}.reward-icon{font-size:90px;margin:22px 0;text-shadow:0 0 30px var(--glow,#fff)}.reward-icon.golden-icon{filter:sepia(1) saturate(5) hue-rotate(350deg) brightness(1.2);text-shadow:0 0 25px #ffd700}
+.reward-title{font-size:clamp(27px,7vw,42px);font-weight:1000;line-height:1.35}.reward-detail{font-size:15px;color:#e2e8ff;margin-top:15px;line-height:1.7;white-space:pre-line}
+.overlay-button{width:100%;max-width:270px;border:0;border-radius:13px;padding:14px;margin-top:28px;background:#fff;color:#141a2a;font-weight:900}.clear-button{width:100%;max-width:270px;border:0;border-radius:13px;padding:14px;margin-top:12px;font-weight:900;color:#17203a;background:linear-gradient(100deg,#8cf5ff,#ffe28b)}.clear-button.secondary{background:linear-gradient(100deg,#d4d9e8,#fff);margin-top:10px}
+.clear-panel .reward-title{color:#ffe28b;text-shadow:0 0 20px #ffd75e,0 0 45px #ffb52e}.clear-panel .reward-icon{animation:clearBounce .8s ease-in-out infinite alternate}@keyframes clearBounce{from{transform:scale(1) rotate(-5deg)}to{transform:scale(1.12) rotate(5deg)}}
+.warning-title{color:#ff203c;font-size:clamp(32px,9vw,54px);font-weight:1000;text-shadow:0 0 18px #ff001d,0 0 45px #ff001d;animation:pulse .35s alternate infinite}@keyframes pulse{to{transform:scale(1.06);opacity:.8}}
+#riskToast{display:none;position:fixed;z-index:25;top:8px;left:50%;transform:translateX(-50%);width:max-content;max-width:94vw;padding:10px 16px;border-radius:12px;background:#260b16ed;border:1px solid #ff304b;color:#ff4d62;font-size:14px;font-weight:1000;box-shadow:0 0 20px #ff203c55}
+#gameover{display:none;position:fixed;inset:0;z-index:30;background:#000;align-items:center;justify-content:center;padding:25px}#gameover.show{display:flex}.gameover-title{font-size:clamp(30px,8vw,48px);color:#ff243b;font-weight:1000;letter-spacing:2px;text-shadow:0 0 18px #ff001d,0 0 40px #ff001d}.gameover-sub{color:#aaa;margin:18px 0 28px}.restart,.revive-button{border:1px solid #555;background:#171717;color:#ddd;border-radius:12px;padding:13px 20px;margin:5px}.revive-button{background:linear-gradient(100deg,#8cf5ff,#ffe28b);color:#15213a;font-weight:1000;border:0}
+</style>
+</head>
+<body>
+<section id="titleScreen" class="screen active"><div class="title-content"><div class="logo">ぷにぷにアドベンチャー</div><div class="logo-slime">🫧</div><div class="tagline">鍛錬を重ね、宝箱を開き、<br>世界を救う冒険へ！</div><button class="primary" id="startButton">ゲームスタート</button></div></section>
+<section id="introScreen" class="screen"><div class="intro-content"><div class="intro-scene">🏰 🌲 ✨</div><div class="tagline">――冒険のはじまり――</div><div class="dialogue"><strong>勇者</strong><br>「ぷにぷによ！鍛錬し宝箱を開けて世界を救え！」<br><br><span style="color:#c8d8f6">タップして、冒険を始めよう。</span></div><button class="primary" id="beginAdventure">冒険を始める ▶</button></div></section>
+<main id="game">
+<h1>ぷにぷにアドベンチャー</h1><div class="subtitle">鍛錬し、宝箱を開き、世界を救え！</div><div class="title-box">あなたの称号：<strong id="title">かけだしぷにぷに</strong></div>
+<div class="topline"><div class="points">所持ポイント<strong id="points">0</strong></div><div class="points">ポイント倍率<strong id="mult" class="mult">×1.0</strong></div></div>
+<div class="slime-area"><div class="slime" aria-label="あなた"><span class="eye left"></span><span class="eye right"></span><span class="mouth"></span><span class="blush left"></span><span class="blush right"></span></div><div class="tap-hint">あなたをタップしてポイントを獲得！</div><button class="action-button tap-button" id="tap">ぷにぷにタップ！ ＋1 pt</button></div>
+<div class="section"><h2>あなたのステータス</h2><div class="stats"><div class="stat hp"><div class="watermark">❤️</div><div class="label">HP</div><div class="value" id="hp">100/100</div></div><div class="stat atk"><div class="watermark">⚔️</div><div class="label">攻撃</div><div class="value" id="atk">10</div></div><div class="stat def"><div class="watermark">🛡️</div><div class="label">防御</div><div class="value" id="def">3</div></div></div><div class="inventory">🌿 薬草：<strong id="herbs">0</strong>個　 💥 全力攻撃チケット：<strong id="tickets">0</strong>枚<br>💎 ダイヤモンド宝箱チケット：<strong id="diamondTickets">0</strong>枚　 🤖 自動ぷにぷに：<strong id="autoPuniCount">0</strong>個</div></div>
+<div class="section"><h2>⚔️ バトル</h2><div class="enemy-scene scene-0" id="enemyScene"><div class="enemy-name" id="enemyName">スライム</div><div class="enemy-desc" id="enemyDesc">最初の敵。落ち着いて戦おう。</div><div class="hp-track"><div class="hp-fill" id="enemyBar"></div></div><div class="enemy-hp" id="enemyHp">敵HP：30 / 30</div></div><button class="action-button attack-button" id="attack">⚔️ 敵を攻撃</button><button class="action-button heal-button" id="heal" disabled>🌿 薬草で回復（所持数 0）</button><button class="action-button ticket-button" id="useTicket" disabled>💥 全力攻撃：OFF（チケット 0枚）</button><div class="chest-info">ONにすると、次の攻撃でチケットを1枚消費し、攻撃力の2.5倍のダメージを与えます。</div></div>
+<div class="section"><h2>🎁 通常の宝箱</h2><div class="odds"><div class="odds-title">宝箱の出現確率（次の1回）</div><div class="odds-row c-ticket"><span>💎 ダイヤモンド宝箱チケット</span><strong id="oddsTicket">7.0000%</strong></div><div class="odds-row c-herb"><span>🌿 薬草</span><strong id="oddsHerb">20.0000%</strong></div><div class="odds-row c-mult"><span>✨ ポイント倍率 +0.5倍</span><strong id="oddsMult">30.0000%</strong></div><div class="odds-row c-atk"><span>⚔️ 攻撃 +1</span><strong id="oddsAtk">14.3333%</strong></div><div class="odds-row c-def"><span>🛡️ 防御 +1</span><strong id="oddsDef">14.3333%</strong></div><div class="odds-row c-hp"><span>❤️ 最大HP +1</span><strong id="oddsHp">14.3333%</strong></div><div class="odds-row c-death"><span>🧪 死亡</span><strong id="oddsDeath">0.0000%</strong></div></div><button class="action-button chest-button" id="chest"><span class="chest-icon">🎁</span>宝箱を開ける</button><div class="chest-info">必要ポイント：100 pt（固定）<br><span class="c-death">次回の死亡確率：<strong id="deathChance">0.0000%</strong></span></div></div>
+<div class="section"><h2>💎 ダイヤモンド宝箱</h2><div class="odds"><div class="odds-title">報酬確率（各11.111…％）</div><div class="odds-row"><span>💥 全力攻撃チケット</span><strong>1/9</strong></div><div class="odds-row"><span>💧 聖水</span><strong>1/9</strong></div><div class="odds-row"><span>🧪 毒</span><strong>1/9</strong></div><div class="odds-row"><span>🌿 薬草10個</span><strong>1/9</strong></div><div class="odds-row"><span>❤️ 生命の神核（最大HP +20）</span><strong>1/9</strong></div><div class="odds-row"><span>🔥 不死鳥の羽</span><strong>1/9</strong></div><div class="odds-row"><span>🗡️ 伝説の剣（攻撃 +10）</span><strong>1/9</strong></div><div class="odds-row"><span>🛡️ 守護の結晶（防御 +10）</span><strong>1/9</strong></div><div class="odds-row"><span>🤖 自動ぷにぷに（自動タップ回数 +1）</span><strong>1/9</strong></div></div><button class="action-button diamond-button" id="diamondChest">💎 ダイヤモンド宝箱を開ける</button><div class="chest-info">必要アイテム：ダイヤモンド宝箱チケット1枚<br>死亡する危険はありません。</div></div>
+<div class="section"><h2>🎒 道具</h2><div class="tool-item"><div class="tool-icon">💧</div><div class="tool-info"><strong>聖水</strong>通常の宝箱の死亡確率を1ポイント下げる。<div class="tool-count">所持数：<span id="holyWaterCount">0</span>個</div></div><button class="tool-use" id="useHolyWater">使用</button></div><div class="tool-item"><div class="tool-icon">🧪</div><div class="tool-info"><strong>毒</strong>通常の宝箱の死亡確率を1ポイント上げる。<div class="tool-count">所持数：<span id="poisonCount">0</span>個</div></div><button class="tool-use" id="usePoison">使用</button></div><div class="tool-item"><div class="tool-icon">🔥</div><div class="tool-info"><strong>不死鳥の羽</strong>HPを全回復する。復活回数は増えない。<div class="tool-count">所持数：<span id="phoenixCount">0</span>個</div></div><button class="tool-use" id="usePhoenix">使用</button></div></div><div class="message" id="message">冒険を始めよう！</div>
+</main>
+<div id="overlay"><div class="reward-panel" id="overlayPanel"><div class="reward-kicker" id="overlayKicker">TREASURE CHEST</div><div class="reward-icon" id="overlayIcon">✨</div><div class="reward-title" id="overlayTitle">アイテム獲得！</div><div class="reward-detail" id="overlayDetail"></div><button class="overlay-button" id="overlayClose">冒険に戻る</button><button class="clear-button" id="clearContinue" style="display:none">もう少し遊ぶ？</button><button class="clear-button secondary" id="clearRestart" style="display:none">最初から</button></div></div>
+<div id="riskToast">死亡確率 +0.005%</div>
+<div id="gameover"><div><div class="gameover-title">あなたは死にました</div><div class="gameover-sub" id="gameoverSub">一度だけ復活できます。</div><button class="revive-button" id="revive">✨ 一度だけ蘇る</button><br><button class="restart" id="restart">最初からやり直す</button></div></div>
+<script>
+const $=id=>document.getElementById(id);
+const enemies=[
+{name:"スライム",desc:"最初の敵。落ち着いて戦おう。",hp:30,atk:5,title:"ぷにぷに見習い"},
+{name:"森のゴブリン",desc:"素早い動きに注意！",hp:65,atk:9,title:"森の狩人"},
+{name:"洞窟の狼",desc:"鋭い牙を持つ強敵。",hp:110,atk:14,title:"洞窟の覇者"},
+{name:"炎のゴーレム",desc:"熱い一撃を耐え抜こう。",hp:190,atk:21,title:"炎を制する者"},
+{name:"暗黒騎士",desc:"強固な鎧をまとっている。",hp:320,atk:30,title:"暗黒を越えし者"},
+{name:"古代のドラゴン",desc:"伝説級の力を持つ竜。",hp:550,atk:43,title:"竜殺し"},
+{name:"魔王",desc:"世界を支配する存在。",hp:900,atk:60,title:"魔王を超えし者"},
+{name:"終焉神",desc:"最後に立ちはだかる究極の敵。",hp:1500,atk:85,title:"終焉を超えし者"}];
+let points=0,maxHp=100,hp=100,atk=10,def=3,mult=1,herbs=0,tickets=0,diamondTickets=0,enemyIndex=0,enemyHp=enemies[0].hp;
+let chestsOpened=0,deathChance=0,busy=false,dead=false,hasRevived=false,holyWater=0,poison=0,phoenixFeathers=0,title="かけだしぷにぷに",ticketMode=false;
+let autoPuniCount=0,specialTitleBoost=false,warningPending=false,autoPuniTimer=null,pendingClearReward=null;
+function fmt(n){return Number.isInteger(n)?String(n):n.toFixed(1)}
+function enemyMultiplier(){return specialTitleBoost?3:1}
+function effectiveEnemyHp(index=enemyIndex){return enemies[index].hp*enemyMultiplier()}
+function effectiveEnemyAtk(index=enemyIndex){return enemies[index].atk*enemyMultiplier()}
+function nextDeath(){return chestsOpened<3?0:Math.min(100,deathChance+0.005)}
+function oddsText(id,n){$(id).textContent=n.toFixed(4)+"%"}
+function updateOdds(){const risk=nextDeath(),survive=1-risk/100;oddsText("oddsTicket",7*survive);oddsText("oddsHerb",20*survive);oddsText("oddsMult",30*survive);oddsText("oddsAtk",(43/3)*survive);oddsText("oddsDef",(43/3)*survive);oddsText("oddsHp",(43/3)*survive);oddsText("oddsDeath",risk);oddsText("deathChance",risk)}
+function update(){
+$("points").textContent=fmt(points);$("mult").textContent="×"+mult.toFixed(1);$("hp").textContent=hp+"/"+maxHp;$("atk").textContent=atk;$("def").textContent=def;$("herbs").textContent=herbs;$("tickets").textContent=tickets;$("diamondTickets").textContent=diamondTickets;$("holyWaterCount").textContent=holyWater;$("poisonCount").textContent=poison;$("phoenixCount").textContent=phoenixFeathers;$("autoPuniCount").textContent=autoPuniCount;$("title").textContent=title;
+const e=enemies[enemyIndex],eMax=effectiveEnemyHp();$("enemyName").textContent=e.name;$("enemyDesc").textContent=e.desc+(specialTitleBoost?"【特別称号の効果：HP・攻撃力3倍】":"");$("enemyScene").className="enemy-scene scene-"+enemyIndex;$("enemyHp").textContent="敵HP："+Math.max(0,enemyHp)+" / "+eMax;$("enemyBar").style.width=Math.max(0,Math.min(100,enemyHp/eMax*100))+"%";
+$("heal").disabled=herbs<=0||hp>=maxHp||dead||busy;$("heal").textContent="🌿 薬草で回復（所持数 "+herbs+"）";$("useTicket").disabled=tickets<=0||dead||busy;$("useTicket").classList.toggle("enabled",ticketMode);$("useTicket").textContent="💥 全力攻撃："+(ticketMode?"ON":"OFF")+"（チケット "+tickets+"枚）";$("attack").disabled=dead||busy;$("chest").disabled=dead||busy||points<100;$("diamondChest").disabled=dead||busy||diamondTickets<=0;$("useHolyWater").disabled=holyWater<=0||dead||busy;$("usePoison").disabled=poison<=0||dead||busy;$("usePhoenix").disabled=phoenixFeathers<=0||dead||busy||hp>=maxHp;updateOdds()
+}
+function message(t){$("message").textContent=t}
+$("startButton").onclick=()=>{$("titleScreen").classList.remove("active");$("introScreen").classList.add("active")};
+$("beginAdventure").onclick=()=>{$("introScreen").classList.remove("active");$("game").classList.add("active");update()};
+function doTap(source="manual"){if(dead||busy)return;points+=mult;if(source==="manual"){update();message("+"+fmt(mult)+" pt 獲得！")}}
+$("tap").onclick=()=>doTap("manual");
+// 自動ぷにぷには獲得数を累積し、5秒ごとにその回数分のタップを行う。
+autoPuniTimer=setInterval(()=>{if(dead||busy||autoPuniCount<=0)return;for(let i=0;i<autoPuniCount;i++)points+=mult;update();message("自動ぷにぷに："+autoPuniCount+"回タップ！ +" +fmt(mult*autoPuniCount)+" pt")},5000);
+function gameOver(){dead=true;busy=false;ticketMode=false;$("overlay").className="";$("riskToast").style.display="none";$("gameoverSub").textContent=hasRevived?"復活できる回数を使い切ったため、もう蘇ることはできない……":"一度だけ復活できます。復活時のHPは最大HPの50％です。";$("revive").style.display=hasRevived?"none":"inline-block";$("gameover").classList.add("show");update()}
+$("revive").onclick=()=>{if(!dead||hasRevived)return;hasRevived=true;hp=Math.max(1,Math.ceil(maxHp*.5));dead=false;busy=false;$("gameover").classList.remove("show");message("一度だけ蘇った！ HPが"+hp+"に回復！");update()};
+function setTitleFromDefeat(defeatedTitle){if(title==="暇を持て余す者")return;if(title==="終焉を超えし者"){if(defeatedTitle==="終焉を超えし者")title="暇を持て余す者";return}title=defeatedTitle}
+function showOverlay({icon,title,detail,color,light,kicker="ITEM GET！",golden=false}){$("overlay").className="show reward";$("overlayPanel").style.setProperty("--glow",color);$("overlayPanel").style.setProperty("--light",light);$("overlayKicker").textContent=kicker;$("overlayIcon").textContent=icon;$("overlayIcon").classList.toggle("golden-icon",golden);$("overlayTitle").textContent=title;$("overlayTitle").className="reward-title";$("overlayDetail").textContent=detail}
+function wait(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
+async function showSpecialTitleWarning(){
+busy=true;$("overlay").className="show warning";$("overlayKicker").textContent="SPECIAL TITLE WARNING";$("overlayIcon").textContent="⚠️";$("overlayIcon").classList.remove("golden-icon");$("overlayTitle").className="warning-title";$("overlayTitle").textContent="特別な称号";$("overlayDetail").textContent="「暇を持て余す者」を獲得！\n警告：これ以降、敵のHPと攻撃力が3倍になります。";$("overlayClose").textContent="覚悟して続ける";$("overlayClose").style.display="";$("clearContinue").style.display="none";$("clearRestart").style.display="none";update()
+}
+function defeatEnemy(){
+const defeatedIndex=enemyIndex,defeated=enemies[defeatedIndex],reward=50*(defeatedIndex+1);points+=reward;
+const wasEndTitle=title==="終焉を超えし者";setTitleFromDefeat(defeated.title);const unlockedIdleTitle=wasEndTitle&&title==="暇を持て余す者";if(unlockedIdleTitle)specialTitleBoost=true;
+const isFinalBoss=defeatedIndex===enemies.length-1;enemyIndex=isFinalBoss?0:enemyIndex+1;enemyHp=effectiveEnemyHp();busy=true;
+if(unlockedIdleTitle){if(isFinalBoss)pendingClearReward=reward;showSpecialTitleWarning();message("特別な称号「暇を持て余す者」を獲得！ 敵が強化された！");return}
+if(isFinalBoss){$("overlayPanel").classList.add("clear-panel");showOverlay({icon:"🏆",title:"GAME CLEAR！",detail:"終焉神を倒した！\n世界に平和が戻った！\n\n討伐報酬 +"+reward+" pt\n称号："+title,color:"#ffe28b",light:"#ffca5555",kicker:"CONGRATULATIONS！"});$("overlayClose").style.display="none";$("clearContinue").style.display="none";$("clearRestart").style.display="none";message("ゲームクリア！ 終焉神を討伐した！");update();wait(1800).then(()=>{if(!$("overlay").classList.contains("show"))return;$("clearContinue").style.display="";$("clearRestart").style.display=""});return}
+showOverlay({icon:"🏆",title:"討伐成功！",detail:defeated.name+"を倒した！\n称号："+title+"\n\nポイント GET！\n+"+reward+" pt",color:"#ffe28b",light:"#ffca5538",kicker:"MONSTER DEFEATED！"});$("overlayClose").textContent="次の敵へ";$("overlayClose").style.display="";$("clearContinue").style.display="none";$("clearRestart").style.display="none";message(defeated.name+"を討伐！ +"+reward+" pt 獲得！");update()
+}
+function performAttack(useTicket){if(dead||busy)return;const e=enemies[enemyIndex],usedTicket=useTicket&&tickets>0,damage=usedTicket?atk*2.5:atk;if(usedTicket){tickets--;ticketMode=false}enemyHp-=damage;if(enemyHp<=0){defeatEnemy();update();return}const incoming=Math.max(1,effectiveEnemyAtk()-def);hp=Math.max(0,hp-incoming);if(hp<=0){update();gameOver();return}message((usedTicket?"全力攻撃チケット発動！ ":"")+e.name+"に"+fmt(damage)+"ダメージ！ 反撃で"+incoming+"ダメージを受けた");update()}
+$("attack").onclick=()=>performAttack(ticketMode);
+$("useTicket").onclick=()=>{if(dead||busy)return;if(tickets<=0){ticketMode=false;message("全力攻撃チケットがありません。");update();return}ticketMode=!ticketMode;message(ticketMode?"全力攻撃ON！ 次の攻撃でチケットを1枚使います。":"全力攻撃OFF！ 通常攻撃に戻りました。");update()};
+$("heal").onclick=()=>{if(dead||busy||herbs<=0||hp>=maxHp)return;herbs--;const before=hp;hp=Math.min(maxHp,hp+30);message("薬草を使った！ HPが"+(hp-before)+"回復した");update()};
+$("useHolyWater").onclick=()=>{if(dead||busy||holyWater<=0)return;holyWater--;deathChance=Math.max(0,deathChance-1);message("聖水を使用！ 通常の宝箱の死亡確率が1ポイント下がった。");update()};
+$("usePoison").onclick=()=>{if(dead||busy||poison<=0)return;poison--;deathChance=Math.min(100,deathChance+1);message("毒を使用！ 通常の宝箱の死亡確率が1ポイント上がった。");update()};
+$("usePhoenix").onclick=()=>{if(dead||busy||phoenixFeathers<=0||hp>=maxHp)return;phoenixFeathers--;const before=hp;hp=maxHp;message("不死鳥の羽が輝いた！ HPが"+(hp-before)+"回復した！");update()};
+$("overlayClose").onclick=()=>{
+if(pendingClearReward!==null){const reward=pendingClearReward;pendingClearReward=null;$ ("overlay").className="";busy=false;$("overlayPanel").classList.add("clear-panel");showOverlay({icon:"🏆",title:"GAME CLEAR！",detail:"終焉神を倒した！\n世界に平和が戻った！\n\n討伐報酬 +"+reward+" pt\n称号："+title+"\n特別な称号を解放した！",color:"#ffe28b",light:"#ffca5555",kicker:"CONGRATULATIONS！"});$("overlayPanel").classList.add("clear-panel");$("overlayClose").style.display="none";$("clearContinue").style.display="none";$("clearRestart").style.display="none";update();wait(500).then(()=>{if($("overlay").classList.contains("show")){$("clearContinue").style.display="";$("clearRestart").style.display=""}});return}
+$("overlay").className="";$("riskToast").style.display="none";$("overlayPanel").classList.remove("clear-panel");$("overlayTitle").className="reward-title";$("overlayClose").textContent="冒険に戻る";$("overlayClose").style.display="";$("clearContinue").style.display="none";$("clearRestart").style.display="none";busy=false;update()};
+$("clearContinue").onclick=()=>{$("overlay").className="";$("overlayPanel").classList.remove("clear-panel");$("overlayTitle").className="reward-title";$("overlayClose").style.display="";$("overlayClose").textContent="冒険に戻る";$("clearContinue").style.display="none";$("clearRestart").style.display="none";busy=false;update();message("冒険は続く！ 次のボスに挑もう！")};
+$("clearRestart").onclick=()=>$("restart").click();
+async function chestSequence(){
+if(dead||busy)return;if(points<100){message("ポイントが足りません。100 pt必要です。");return}busy=true;points-=100;chestsOpened++;if(chestsOpened<=3)deathChance=0;else deathChance=Math.min(100,deathChance+0.005);update();
+if(chestsOpened===4){$("overlay").className="show warning";$("overlayKicker").textContent="WARNING";$("overlayIcon").textContent="⚠️";$("overlayTitle").className="warning-title";$("overlayTitle").textContent="死亡のリスク";$("overlayDetail").textContent="宝箱には危険が潜んでいる……";$("overlayClose").style.display="none";await wait(1200);if(dead)return;$("overlayTitle").textContent="死亡確率 "+deathChance.toFixed(4)+"%";$("overlayDetail").textContent="宝箱を開ける……";await wait(700);if(dead)return}
+if(chestsOpened>=4){$("riskToast").textContent="死亡確率 +0.005%";$("riskToast").style.display="block"}
+if(Math.random()*100<deathChance){$("overlay").className="";gameOver();return}
+const r=Math.random()*100;
+if(r<7){diamondTickets++;showOverlay({icon:"💎",title:"ダイヤモンド宝箱チケット",detail:"特別な宝箱を1回開けられる！",color:"#7ceaff",light:"#49aaff55",kicker:"RARE ITEM！"})}
+else if(r<27){herbs++;showOverlay({icon:"🌿",title:"薬草を獲得！",detail:"薬草を1個入手した。バトル欄から使えるよ。",color:"#54ff9a",light:"#24ff8735",kicker:"HEAL ITEM"})}
+else if(r<57){mult+=.5;showOverlay({icon:"✨",title:"+0.5倍",detail:"ポイント倍率が上昇！ 現在の倍率：×"+mult.toFixed(1),color:"#c69bff",light:"#9b50ff40",kicker:"MULTIPLIER UP"})}
+else{const stat=Math.floor(Math.random()*3);if(stat===0){atk++;showOverlay({icon:"⚔️",title:"攻撃 +1",detail:"あなたの攻撃力が1上がった！",color:"#ffb56b",light:"#ff842c38",kicker:"STATUS UP"})}else if(stat===1){def++;showOverlay({icon:"🛡️",title:"防御 +1",detail:"あなたの防御力が1上がった！",color:"#83d3ff",light:"#269dff38",kicker:"STATUS UP"})}else{maxHp++;hp++;showOverlay({icon:"❤️",title:"最大HP +1",detail:"最大HPと現在HPが1上がった！",color:"#ff7c9a",light:"#ff235838",kicker:"STATUS UP"})}}
+$("overlayClose").style.display="";update()
+}
+async function diamondChestSequence(){
+if(dead||busy)return;if(diamondTickets<=0){message("ダイヤモンド宝箱チケットがありません。");return}busy=true;diamondTickets--;update();
+$("overlay").className="show diamond";$("overlayPanel").style.setProperty("--glow","#7ceaff");$("overlayPanel").style.setProperty("--light","#6a69ff66");$("overlayKicker").textContent="DIAMOND TREASURE";$("overlayIcon").textContent="💎";$("overlayIcon").classList.remove("golden-icon");$("overlayTitle").className="reward-title";$("overlayTitle").textContent="ダイヤモンド宝箱";$("overlayDetail").textContent="神秘の宝箱が開いていく……";$("overlayClose").style.display="none";$("clearContinue").style.display="none";$("clearRestart").style.display="none";
+await wait(1100);if(dead)return;
+const rewards=[
+()=>{tickets++;return{icon:"💥",title:"全力攻撃チケット",detail:"次の攻撃で攻撃力の2.5倍のダメージを与える！\nバトル欄でONにして使おう。",color:"#fff08a",light:"#ffdb3b55"}},
+()=>{holyWater++;return{icon:"💧",title:"聖水",detail:"通常の宝箱の死亡確率を1ポイント下げる道具を獲得！",color:"#7ceaff",light:"#249dff55"}},
+()=>{poison++;return{icon:"🧪",title:"毒",detail:"通常の宝箱の死亡確率を1ポイント上げる道具を獲得！",color:"#c69bff",light:"#9b50ff55"}},
+()=>{herbs+=10;return{icon:"🌿",title:"薬草10個",detail:"薬草を10個獲得！ バトルでHPを回復できる。",color:"#54ff9a",light:"#24ff8755"}},
+()=>{maxHp+=20;hp+=20;return{icon:"❤️",title:"生命の神核",detail:"神核が自動発動！\n最大HPが20増加し、現在HPも20回復した！",color:"#ff7c9a",light:"#ff235855"}},
+()=>{phoenixFeathers++;return{icon:"🔥",title:"不死鳥の羽",detail:"使用するとHPを全回復する。復活回数は増えない。",color:"#ff9a56",light:"#ff552e66"}},
+()=>{atk+=10;return{icon:"🗡️",title:"伝説の剣",detail:"伝説の剣の力が宿った！\n攻撃力が10上がった！",color:"#ffe28b",light:"#ffca5555",golden:true}},
+()=>{def+=10;return{icon:"🛡️",title:"守護の結晶",detail:"守護の結晶が輝いた！\n防御力が10上がった！",color:"#ffe28b",light:"#ffca5555",golden:true}},
+()=>{autoPuniCount++;return{icon:"🤖",title:"自動ぷにぷに",detail:"自動ぷにぷにを獲得！\n5秒ごとに"+autoPuniCount+"回、自動でタップします。獲得するたび効果が累積します。",color:"#7ceaff",light:"#249dff55"}}
+];
+const rewardIndex=Math.floor(Math.random()*9),result=rewards[rewardIndex]();showOverlay({...result,kicker:"DIAMOND TREASURE！"});$("overlay").className="show diamond";$("overlayClose").textContent="冒険に戻る";$("overlayClose").style.display="";$("overlayPanel").style.setProperty("--glow",result.color);$("overlayPanel").style.setProperty("--light",result.light);$("overlayIcon").classList.toggle("golden-icon",!!result.golden);message("ダイヤモンド宝箱から「"+result.title+"」を獲得！");update()
+}
+$("chest").onclick=chestSequence;$("diamondChest").onclick=diamondChestSequence;
+$("restart").onclick=()=>{
+points=0;maxHp=100;hp=100;atk=10;def=3;mult=1;herbs=0;tickets=0;diamondTickets=0;enemyIndex=0;enemyHp=enemies[0].hp;chestsOpened=0;deathChance=0;busy=false;dead=false;hasRevived=false;pendingClearReward=null;holyWater=0;poison=0;phoenixFeathers=0;title="かけだしぷにぷに";ticketMode=false;autoPuniCount=0;specialTitleBoost=false;warningPending=false;
+$("gameover").classList.remove("show");$("overlay").className="";$("overlayPanel").classList.remove("clear-panel");$("overlayIcon").classList.remove("golden-icon");$("overlayClose").style.display="";$("overlayClose").textContent="冒険に戻る";$("clearContinue").style.display="none";$("clearRestart").style.display="none";$("riskToast").style.display="none";$("titleScreen").classList.add("active");$("game").classList.remove("active");$("introScreen").classList.remove("active");message("冒険を始めよう！");update()
+};
+update();
+</script>
+</body>
+</html>
