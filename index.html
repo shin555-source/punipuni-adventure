@@ -160,6 +160,26 @@ h1{font-size:23px;margin:4px 0}.subtitle{color:#9daaca;font-size:12px;margin:5px
 .home-title-image img{width:min(92%,430px);height:auto;max-height:80px;object-fit:contain}
 .tutorial-screen{background:rgba(9,16,30,.22) url("./2712D019-18CD-4770-85DF-D5278CD7836B.png") center center/100% 100% no-repeat}
 .tutorial-panel{background:rgba(16,29,54,.76);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+
+/* Requested visual adjustments only: subtle translucency on gameplay panels.
+   Overlays, victory effects, game-over screens and their contents are untouched. */
+#game .section{background-color:rgba(25,36,61,.87)}
+#game .title-box{background-color:rgba(26,37,64,.87)}
+#game .points{background-color:rgba(32,44,73,.87)}
+#game .slime-area{background:radial-gradient(ellipse,rgba(40,62,102,.88),rgba(21,30,52,.88))}
+#game .stat{background-color:rgba(38,50,77,.87)}
+#game .stat.hp{background:linear-gradient(135deg,rgba(30,87,56,.88),rgba(38,48,71,.88))}
+#game .stat.atk{background:linear-gradient(135deg,rgba(107,36,43,.88),rgba(38,48,71,.88))}
+#game .stat.def{background:linear-gradient(135deg,rgba(36,61,85,.88),rgba(38,48,71,.88))}
+#game .enemy-scene{background-color:rgba(20,37,60,.87)}
+#game .odds{background-color:rgba(16,24,44,.88)}
+#game .regular-chest-section.type-attack{background:linear-gradient(135deg,rgba(59,32,43,.87),rgba(25,36,61,.87) 75%)}
+#game .regular-chest-section.type-defense{background:linear-gradient(135deg,rgba(57,43,33,.87),rgba(25,36,61,.87) 75%)}
+#game .regular-chest-section.type-health{background:linear-gradient(135deg,rgba(25,59,43,.87),rgba(25,36,61,.87) 75%)}
+#game .regular-chest-section.type-multiplier{background:linear-gradient(135deg,rgba(52,57,67,.87),rgba(25,36,61,.87) 75%)}
+#game .regular-chest-section.type-all{background:linear-gradient(135deg,rgba(75,60,24,.87),rgba(25,36,61,.87) 75%)}
+/* Slightly larger home logo, with no layout changes elsewhere. */
+#page-home .home-title-image img{width:min(100%,480px);max-height:100px}
 </style>
 </head>
 <body>
