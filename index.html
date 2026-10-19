@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#10182c">
-<link rel="apple-touch-icon" href="./A2BD5F9D-369F-455C-A83E-10CA98BC3910.png">
+<link rel="apple-touch-icon" href="./IMG_0849.jpeg">
 <title>ぷにぷにアドベンチャー</title>
 <style>
 *{box-sizing:border-box} :root{color-scheme:dark}
@@ -143,13 +143,30 @@ h1{font-size:23px;margin:4px 0}.subtitle{color:#9daaca;font-size:12px;margin:5px
 #page-battle .enemy-scene{background:#14253c}
 #page-battle .enemy-scene::before,#page-battle .enemy-scene::after{display:none}
 #page-battle .enemy-character{display:block;width:100%;height:clamp(170px,35dvh,370px);object-fit:contain;flex-shrink:1;min-height:0;margin:8px auto 12px}
+
+/* Four requested image-only screen updates */
+#titleScreen{background:#10182c url("./97F3678F-EBD9-4F68-A6E9-60A53EBD8434.png") center center/100% 100% no-repeat;padding:0;min-height:100dvh}
+#introScreen{background:#10182c url("./2712D019-18CD-4770-85DF-D5278CD7836B.png") center center/100% 100% no-repeat;min-height:100dvh;padding:16px}
+#titleScreen::before,#introScreen::before{display:none}
+#titleScreen .title-content{width:100%;height:100dvh;max-width:none;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:0 5%;position:relative}
+.title-logo-image{position:absolute;top:13%;left:6%;width:88%;height:auto;max-height:24vh;object-fit:contain}
+#titleScreen #startButton{position:absolute;top:73%;left:12%;width:76%;max-width:400px;transform:none;font-weight:900}
+#introScreen .intro-content{width:min(100%,440px);display:flex;flex-direction:column;gap:15px;justify-content:center;max-height:100dvh}
+.intro-story{background:rgba(10,19,39,.72);border:1px solid rgba(175,206,255,.7);border-radius:18px;padding:20px 16px;text-align:left;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);overflow-y:auto;max-height:72dvh}
+.intro-story h2{text-align:center;margin:0 0 15px;color:#ffdd89;font-size:23px}
+.intro-story p{font-size:clamp(13px,3.7vw,16px);line-height:1.7;margin:12px 0}
+#game{background:#10182c url("./67354DBB-E031-42E4-A83B-5C1C492FDF48.png") center center/100% 100% fixed no-repeat;min-height:100dvh}
+.home-title-image{margin:0 auto;display:flex;align-items:center;justify-content:center;width:100%;max-width:100%}
+.home-title-image img{width:min(92%,430px);height:auto;max-height:80px;object-fit:contain}
+.tutorial-screen{background:rgba(9,16,30,.22) url("./2712D019-18CD-4770-85DF-D5278CD7836B.png") center center/100% 100% no-repeat}
+.tutorial-panel{background:rgba(16,29,54,.76);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
 </style>
 </head>
 <body>
-<section id="titleScreen" class="screen active"><div class="title-content"><div class="logo">ぷにぷにアドベンチャー</div><div class="logo-slime">🫧</div><div class="tagline">鍛錬を重ね、宝箱を開き、<br>世界を救う冒険へ！</div><button class="primary" id="startButton">ゲームスタート</button></div></section>
-<section id="introScreen" class="screen"><div class="intro-content"><div class="intro-scene">🏰 🌲 ✨</div><div class="tagline">――冒険のはじまり――</div><div class="dialogue"><strong>勇者</strong><br>「ぷにぷによ！鍛錬し宝箱を開けて世界を救え！」<br><br><span style="color:#c8d8f6">タップして、冒険を始めよう。</span></div><button class="primary" id="beginAdventure">冒険を始める ▶</button></div></section>
+<section id="titleScreen" class="screen active"><div class="title-content"><img class="title-logo-image" src="./CEBBCECD-1614-45A1-9198-125BA011F940.png" alt="ぷにぷにアドベンチャー"><button class="primary" id="startButton">タップして始める</button></div></section>
+<section id="introScreen" class="screen"><div class="intro-content"><div class="intro-story"><h2>冒険のはじまり</h2><p>ある日、小さなスライムは思った。</p><p>「この世界の果てには、何があるんだろう？」</p><p>強くなれば、まだ見ぬ敵と戦える。<br>宝箱を開ければ、未知の力が手に入る。</p><p>だけど、その先に待つのは希望か、それとも絶望か。</p><p>小さなスライムの、大きな冒険が今始まる。</p></div><button class="primary" id="beginAdventure">冒険を始める ▶</button></div></section>
 <main id="game">
-<h1>ぷにぷにアドベンチャー</h1><div class="subtitle">鍛錬し、宝箱を開き、世界を救え！</div><div class="title-box">あなたの称号：<strong id="title">かけだしぷにぷに</strong></div>
+<h1 class="home-title-image"><img src="./CEBBCECD-1614-45A1-9198-125BA011F940.png" alt="ぷにぷにアドベンチャー"></h1><div class="subtitle">鍛錬し、宝箱を開き、世界を救え！</div><div class="title-box">あなたの称号：<strong id="title">かけだしぷにぷに</strong></div>
 <div class="points home-points">所持ポイント<strong id="points">0</strong></div><div class="topline compact-cards"><div class="points multiplier-card"><span class="compact-heading">ポイント倍率</span><strong id="mult" class="mult">×1.0</strong></div><div class="points auto-purchase-card" data-watermark="🤖"><span class="compact-heading">自動ぷにぷに</span><strong id="autoPuniCount">0回/1秒間</strong><button class="auto-buy" id="buyAutoPuni">購入 150 ポイント</button><small id="autoPuniPurchaseCount">購入 0/5回</small></div><div class="points holy-purchase-card" data-watermark="💧"><span class="compact-heading">自動聖水</span><div id="autoHolyWaterCountdown" class="auto-countdown">05:00</div><button id="buyAutoHolyWater" class="auto-buy">500ポイントで解放</button><small>所持数：<span id="autoHolyWaterCount">0</span>本</small><small id="autoHolyWaterStatus">未解放</small></div></div>
 <div class="slime-area"><div id="autoFingers" class="auto-fingers"></div><div class="slime" aria-label="あなた"><span class="eye left"></span><span class="eye right"></span><span class="mouth"></span><span class="blush left"></span><span class="blush right"></span></div><div class="tap-hint">ぷにぷにをタップして1ポイントを獲得！</div><button class="action-button tap-button" id="tap">ぷにぷにタップ！</button></div>
 <div class="section"><h2>あなたのステータス</h2><div class="stats"><div class="stat hp"><div class="watermark">❤️</div><div class="label">HP</div><div class="value" id="hp">100/100</div></div><div class="stat atk"><div class="watermark">⚔️</div><div class="label">攻撃</div><div class="value" id="atk">10</div></div><div class="stat def"><div class="watermark">🛡️</div><div class="label">防御</div><div class="value" id="def">3</div></div></div><div class="home-type-line">現在のタイプ：<strong id="statusTypeName">タイプなし</strong><span id="statusTypeAbility" style="display:none">タイプ能力なし。通常の宝箱報酬を獲得します。</span></div></div>
@@ -191,7 +208,7 @@ if(Array.isArray(d.diamondRemaining)&&d.diamondRemaining.length===9)diamondRemai
 if(!Number.isFinite(d.roundNumber)){if(title==="終焉を超えし者")roundNumber=2;else if(title==="暇を持て余す者"){roundNumber=3;specialTitleBoost=true}}
 // 旧セーブには羽の初期所持設定がないため、移行時に一度だけ1枚付与。
 if(typeof d.phoenixInitialized!=="boolean"){phoenixFeathers=Math.max(1,phoenixFeathers);phoenixInitialized=true}else phoenixInitialized=d.phoenixInitialized;
-busy=false;$("titleScreen").classList.toggle("active",d.screen!=="game"&&d.screen!=="intro");$("introScreen").classList.toggle("active",d.screen==="intro");$("game").classList.toggle("active",d.screen==="game"||dead);if(dead){$("gameover").classList.add("show");$("gameoverSub").textContent=phoenixFeathers>0?"不死鳥の羽が残っている。復活できる！":"不死鳥の羽が残っていない……";$("revive").style.display=phoenixFeathers>0?"":"none";$("gameover").classList.toggle("gameover-phoenix",phoenixFeathers>0)}
+busy=false;$("titleScreen").classList.add("active");$("introScreen").classList.remove("active");$("game").classList.remove("active");if(dead){$("gameover").classList.remove("show");$("gameoverSub").textContent=phoenixFeathers>0?"不死鳥の羽が残っている。復活できる！":"不死鳥の羽が残っていない……";$("revive").style.display=phoenixFeathers>0?"":"none";$("gameover").classList.toggle("gameover-phoenix",phoenixFeathers>0)}
 }catch(e){}}
 function fmt(n){return Number.isInteger(n)?String(n):Number(n.toFixed(3)).toString()}
 function enemyMultiplier(){return specialTitleBoost?3:(roundNumber>=2?1.5:1)}
@@ -219,7 +236,7 @@ let gameRecords=[];
 function logRecord(action,result="—"){const d=new Date();gameRecords.unshift({date:d.toLocaleDateString('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit'}),time:d.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}),action:String(action).slice(0,160),result:String(result).slice(0,180)});if(gameRecords.length>150)gameRecords.length=150;try{localStorage.setItem('punipuniAdventureRecords_v1',JSON.stringify(gameRecords))}catch(e){}renderRecords()}
 function renderRecords(){const body=$('recordRows');if(!body)return;body.innerHTML='';for(const r of gameRecords){const tr=document.createElement('tr');for(const v of [r.date,r.time,r.action,r.result]){const td=document.createElement('td');td.textContent=v;tr.appendChild(td)}body.appendChild(tr)}}
 function message(t){$("message").textContent=t;if(t&&!t.startsWith('自動ぷにぷに：')&&!/^\+.*ポイント 獲得！$/.test(t))logRecord(t,'ゲーム内イベント');}
-$("startButton").onclick=()=>{$("titleScreen").classList.remove("active");$("introScreen").classList.add("active");saveGame()};
+$("startButton").onclick=()=>{$("titleScreen").classList.remove("active");if(localStorage.getItem("punipuniTutorialSeen_v1")){ $("game").classList.add("active");if(dead)$("gameover").classList.add("show");update(); }else{$("introScreen").classList.add("active");}saveGame()};
 $("beginAdventure").onclick=()=>{$("introScreen").classList.remove("active");$("game").classList.add("active");update();saveGame();if(!localStorage.getItem('punipuniTutorialSeen_v1'))showTutorial(0)};
 function showTutorial(step){const slides=[['① 敵を倒して進もう','下の「⚔️ バトル」を押し、画面の「⚔️ 敵を攻撃」ボタンで敵を倒します。勝つと次の敵へ進みます。'],['② 宝箱には危険もある','下の「🎁 宝箱」を押すと通常の宝箱があります。宝箱はアイテムや能力を得られますが、死亡する可能性もあります。'],['③ 聖水で死亡率を下げよう','「🎁 宝箱」画面ではなく「🎒 道具・交換」画面を開き、聖水の「使用」ボタンを押すと死亡確率を下げます。'],['④ 不死鳥の羽で復活','「🎒 道具・交換」に不死鳥の羽の所持数があります。死亡したとき、表示される「🔥 不死鳥の羽で復活」を押すと羽を1枚使って復活できます。']];let tut=$('tutorialScreen');if(!tut){tut=document.createElement('div');tut.id='tutorialScreen';tut.className='tutorial-screen';document.body.appendChild(tut)}const x=slides[step];tut.innerHTML='<div class="tutorial-panel"><h2>'+x[0]+'</h2><p>'+x[1]+'</p><small>'+(step+1)+' / '+slides.length+'</small><button id="tutorialNext" class="primary" style="width:100%;margin-top:14px">'+(step===slides.length-1?'冒険を始める':'次へ')+'</button><button id="tutorialSkip" style="width:100%;margin-top:7px">スキップ</button></div>';tut.classList.add('show');$('tutorialNext').onclick=()=>{if(step<slides.length-1)showTutorial(step+1);else{tut.classList.remove('show');localStorage.setItem('punipuniTutorialSeen_v1','1')}};$('tutorialSkip').onclick=()=>{tut.classList.remove('show');localStorage.setItem('punipuniTutorialSeen_v1','1')}};
 function doTap(source="manual"){if(dead||busy)return;points+=mult;if(source==="manual"){update();message("+"+fmt(mult)+" ポイント 獲得！")}}
