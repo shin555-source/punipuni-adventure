@@ -244,16 +244,17 @@ h1{font-size:23px;margin:4px 0}.subtitle{color:#9daaca;font-size:12px;margin:5px
 /* 2026-10: three requested presentation-only adjustments */
 /* Home logo: ~1.7x height; preserve image ratio and viewport width */
 #page-home .home-title-image img{width:auto;max-width:100%;height:auto;max-height:170px;object-fit:contain}
-/* Subdued matching backgrounds for five home cards only */
-#page-home{--home-card-a:#163c50;--home-card-b:#192b45;--home-card-border:#3e7995;--home-card-light:#67c8e844}
-#page-home[data-puni-type="attack"]{--home-card-a:#4a242e;--home-card-b:#292338;--home-card-border:#9e4d50;--home-card-light:#fa755033}
-#page-home[data-puni-type="defense"]{--home-card-a:#47382b;--home-card-b:#292a34;--home-card-border:#866d52;--home-card-light:#d6aa6830}
-#page-home[data-puni-type="health"]{--home-card-a:#214634;--home-card-b:#192f36;--home-card-border:#4c9268;--home-card-light:#80d99530}
-#page-home[data-puni-type="multiplier"]{--home-card-a:#3a4a5b;--home-card-b:#242c3d;--home-card-border:#8b9eb5;--home-card-light:#c3d9f038}
-#page-home[data-puni-type="all"]{--home-card-a:#58462c;--home-card-b:#302d35;--home-card-border:#a48a54;--home-card-light:#ffe09a30}
+/* Five home panels share the exact same type-dependent backdrop as the hero scene,
+   without the hero scene's floor-shadow pseudo-element. */
+#page-home{--puni-aura:#37cfff;--puni-halo:#155db4;--puni-floor:#0d4b82}
+#page-home[data-puni-type="attack"]{--puni-aura:#ff6b29;--puni-halo:#8d1721;--puni-floor:#4b1a15}
+#page-home[data-puni-type="defense"]{--puni-aura:#b58a5b;--puni-halo:#57402d;--puni-floor:#392c23}
+#page-home[data-puni-type="health"]{--puni-aura:#7cf565;--puni-halo:#17693e;--puni-floor:#134e31}
+#page-home[data-puni-type="multiplier"]{--puni-aura:#e3f1ff;--puni-halo:#6c849d;--puni-floor:#38465c}
+#page-home[data-puni-type="all"]{--puni-aura:#fff2a5;--puni-halo:#a87916;--puni-floor:#65490d}
 #page-home .home-points,#page-home .multiplier-card,#page-home .auto-purchase-card,#page-home .holy-purchase-card,#page-home #homeStatusPanel{
- background:radial-gradient(ellipse at 85% 0%,var(--home-card-light),transparent 65%),linear-gradient(135deg,var(--home-card-a),var(--home-card-b));
- border:1px solid var(--home-card-border);box-shadow:inset 0 1px 0 #ffffff12;transition:background .3s,border-color .3s;
+ background:radial-gradient(ellipse at 50% 76%,var(--puni-floor) 0%,transparent 60%),radial-gradient(ellipse at 50% 44%,var(--puni-aura) 0%,var(--puni-halo) 30%,#111c38 77%);
+ border:1px solid var(--puni-halo);box-shadow:none;transition:background .35s,border-color .35s;
 }
 /* Bulk results: scroll only the reward list; keep return button visible */
 #overlay.bulk-results .reward-panel{justify-content:flex-start;min-height:0;height:min(90dvh,780px);max-height:calc(100dvh - 30px);padding:14px 16px;overflow:hidden}
